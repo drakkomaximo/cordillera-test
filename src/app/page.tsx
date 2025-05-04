@@ -1,103 +1,121 @@
 import Image from "next/image";
+import Button from "@/components/ui/Button";
+import Accordion from "@/components/ui/Accordion";
+import Columns from "@/components/ui/Columns";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import RestaurantTables from '@/components/ui/RestaurantTables';
+import PricingTables from '@/components/ui/PricingTables';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const accordionItems = [
+    {
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum interdum lacinia.',
+      content: 'Curabitur vestibulum interdum lacinia. Donec aliquam leo in augue hendrerit viverra. Mauris vitae blandit augue. Cras vel turpis arcu. Nulla cursus fermentum eleifend. Ut a ipsum est. Morbi nec blandit nisi, at tristique nisi. Mauris maximus nulla vitae ante luctus interdum in eu magna. Sed quis auctor odio. Mauris at tincidunt sem, nec rhoncus ipsum. Integer rutrum egestas ipsum id sodales.'
+    },
+    {
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum interdum lacinia.',
+      content: 'Contenido expandido del segundo ítem.'
+    },
+    {
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum interdum lacinia.',
+      content: 'Contenido expandido del tercer ítem.'
+    },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  const steps = [
+    {
+      image: "/columns-step-1.svg",
+      title: "PASO 1",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla."
+    },
+    {
+      image: "/columns-step-2.svg",
+      title: "PASO 2",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla."
+    },
+    {
+      image: "/columns-step-3.svg",
+      title: "PASO 3",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla."
+    }
+  ];
+
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center gap-8 p-8 bg-ultra">
+      <Header />
+      <div className="flex flex-col gap-4">
+        <Button variant="primary">Call to Action</Button>
+        <Button variant="primary" disabled>Call to Action</Button>
+        <Button variant="secondary">Call to Action</Button>
+        <Button variant="secondary" disabled>Call to Action</Button>
+      </div>
+      <div className="w-full max-w-3xl mt-12">
+        <h2 className="text-3xl font-frente text-accentcyan mb-4">5.6) ACCORDION</h2>
+        <Accordion items={accordionItems} />
+      </div>
+      <div className="w-full max-w-6xl mt-16">
+        <Columns steps={steps} />
+      </div>
+      {/* H1 */}
+      <h1 className="font-frente uppercase text-h1-mobile md:text-h1-desktop">
+        Main Headings / H1
+      </h1>
+      {/* H2 */}
+      <h2 className="font-frente uppercase text-h2-mobile md:text-h2-desktop">
+        Headings / H2
+      </h2>
+      {/* H3 */}
+      <h3 className="font-frente uppercase text-h3-mobile md:text-h3-desktop">
+        Headings / H3
+      </h3>
+      {/* Paragraph */}
+      <p className="font-economica text-p-mobile md:text-p-desktop max-w-xl">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vehicula volutpat lorem faucibus dictum. Mauris euismod, massa ac malesuada dictum, nulla arcu cursus risus, nec cursus velit nulla eu risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam vel velit vitae lacus lacinia egestas. Integer sagittis, velit eget sodales posuere, velit erat facilisis velit, nec laoreet ipsum sapien sed odio.
+      </p>
+      {/* Restaurant Tables */}
+      <div className="w-full max-w-6xl mt-8">
+        <h2 className="text-3xl font-frente text-accentcyan mb-4">5.4) RESTAURANT TABLES</h2>
+        <span className="font-economica text-mainlight text-xl mb-2 block">Ticket group</span>
+        <RestaurantTables
+          restaurants={[
+            { name: 'CREPES AND WAFFLES', priceRange: '35.000 - 150.000 COP' },
+            { name: 'CREPES AND WAFFLES', priceRange: '35.000 - 150.000 COP', vegetarian: true },
+            { name: 'CREPES AND WAFFLES', priceRange: '35.000 - 150.000 COP', vegetarian: true },
+          ]}
+        />
+      </div>
+      {/* Pricing Tables */}
+      <div className="w-full max-w-6xl mt-8">
+        <h2 className="text-3xl font-frente text-accentcyan mb-4">5.3) PRICING TABLES</h2>
+        <span className="font-economica text-mainlight text-xl mb-2 block">Ticket group</span>
+        <PricingTables
+          stages={[
+            {
+              combo: 'COMBO GENERAL',
+              stage: 'ETAPA 1',
+              priceCOP: '300.000 COP',
+              priceUSD: '100 USD',
+              benefits: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum interdum lacinia. Donec aliquam leo in augue hendrerit viverra. Mauris vitae blandit augue. Cras vel turpis arcu. Nulla cursus fermentum eleifend. Ut a ipsum est. Morbi nec blandit nisi, at tristique nisi. Mauris maximus nulla vitae ante luctus interdum in eu magna. Sed quis auctor odio. Mauris at tincidunt sem, nec rhoncus ipsum. Integer rutrum egestas ipsum id sodales.'
+            },
+            {
+              combo: 'COMBO GENERAL',
+              stage: 'ETAPA 2',
+              priceCOP: '300.000 COP',
+              priceUSD: '100 USD',
+              benefits: 'Beneficios de la etapa 2: acceso a todas las zonas, merchandising exclusivo, y más.'
+            },
+            {
+              combo: 'COMBO GENERAL',
+              stage: 'ETAPA 3',
+              priceCOP: '300.000 COP',
+              priceUSD: '100 USD',
+              benefits: 'Beneficios de la etapa 3: acceso a todas las zonas, experiencias VIP, y más.'
+            },
+          ]}
+        />
+      </div>
+      <Footer />
+    </main>
   );
 }
