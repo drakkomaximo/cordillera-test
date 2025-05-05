@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CustomInput, CustomInputWithIcon, CustomDatePicker } from '../ui/Input';
 import OutlinedTitle from '../ui/OutlinedTitle';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../ui/Button';
 
 const schema = z.object({
@@ -17,12 +17,24 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+const DotsLoader = () => {
+  const [dots, setDots] = useState('');
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots(prev => (prev.length < 3 ? prev + '.' : ''));
+    }, 400);
+    return () => clearInterval(interval);
+  }, []);
+  return <span>{dots}</span>;
+};
+
 const ContactSection = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -30,9 +42,36 @@ const ContactSection = () => {
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    // Aquí puedes manejar el envío del formulario
-    alert(JSON.stringify(data, null, 2));
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/gsheet', {
+        method: 'POST',
+        body: JSON.stringify({
+          nombre: data.name,
+          correo: data.email,
+          celular: data.phone,
+          fecha_nacimiento: data.birthdate ? data.birthdate.toISOString().split('T')[0] : '',
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      console.log(result); // Para depuración
+      if (result.result === 'success' || (result.raw && result.raw.includes('success'))) {
+        alert('¡Registro exitoso!');
+        reset();
+      } else {
+        alert('Error al registrar. Intenta de nuevo.\n' + (result.error || result.raw || ''));
+      }
+    } catch (err) {
+      alert('Error de conexión. Intenta de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -50,6 +89,7 @@ const ContactSection = () => {
             <CustomInput
               label="Escribe tu nombre"
               placeholder=""
+              disabled={isSubmitting}
               {...register('name')}
             />
             {errors.name && <span className="text-red-400 text-xs -mt-3">{errors.name.message}</span>}
@@ -61,6 +101,7 @@ const ContactSection = () => {
                 <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="m22 5-10 7L2 5"/></svg>
               }
               type="email"
+              disabled={isSubmitting}
               {...register('email')}
             />
             {errors.email && <span className="text-red-400 text-xs -mt-3">{errors.email.message}</span>}
@@ -72,6 +113,7 @@ const ContactSection = () => {
                 <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
               }
               type="tel"
+              disabled={isSubmitting}
               {...register('phone')}
             />
             {errors.phone && <span className="text-red-400 text-xs -mt-3">{errors.phone.message}</span>}
@@ -86,15 +128,13 @@ const ContactSection = () => {
                   onChange={field.onChange}
                   name={field.name}
                   error={errors.birthdate?.message}
+                  disabled={isSubmitting}
                 />
               )}
             />
 
-            <Button
-              type="submit"
-              className="primary"
-            >
-              REGISTRARSE
+            <Button type="submit" className="primary" disabled={isSubmitting}>
+              {isSubmitting ? <><span>Enviando</span><DotsLoader /></> : 'REGISTRARSE'}
             </Button>
           </form>
           </div>
