@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ContactSection from "../components/layout/ContactSection";
 import Script from "next/script";
+import CookieBanner from "../components/cookies/CookieBanner";
+import CookieSettings from "../components/cookies/CookieSettings";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -36,6 +38,8 @@ export default function RootLayout({
         {/* End Google Tag Manager (noscript) */}
         {children}
         <ContactSection />
+        <CookieBanner />
+        <CookieSettings />
       </body>
     </html>
   );
