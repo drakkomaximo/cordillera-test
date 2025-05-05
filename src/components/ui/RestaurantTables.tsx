@@ -30,8 +30,8 @@ export default function RestaurantTables({ title = 'RESTAURANTES', restaurants }
                   {rest.name}
                 </span>
               </div>
-              <div className="flex flex-col items-end text-right">
-                <span className="text-mainlight/80 text-xs md:text-sm font-economica">Rango de precios:</span>
+              <div className="flex flex-col items-start text-right">
+                <span className="text-mainlight/80 text-xs md:text-sm font-economica text-left">Rango de precios:</span>
                 <span className="font-frente text-mainlight text-lg md:text-2xl font-bold tracking-wider">
                   {rest.priceRange}
                 </span>
