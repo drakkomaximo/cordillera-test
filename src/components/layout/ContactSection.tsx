@@ -76,70 +76,94 @@ const ContactSection = () => {
 
   return (
     <section className="pt-0 pb-12 md:py-14 md:h-auto">
-      <div className="bg-contact-gradient pb-14">
-        <div className="max-w-6xl mx-auto flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-start h-[1061px] md:h-[598px]">
-          {/* Título */}
-          <div className="flex flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
-            <OutlinedTitle>CONTACTO</OutlinedTitle>
-            <p className='block md:hidden text-p-mobile text-mainlight font-normal font-economica mt-2 mx-[20px] text-center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
-          </div>
-          {/* Formulario */}
-          <div className='flex md:justify-end w-full md:mt-[117px]'>
-          <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent flex flex-col gap-4 mx-[20px] md:mx-[0px] w-[calc(100%-40px)] md:w-[326px] md:pr-[15px]">
-            <CustomInput
-              label="Escribe tu nombre"
-              placeholder=""
-              disabled={isSubmitting}
-              {...register('name')}
-            />
-            {errors.name && <span className="text-red-400 text-xs -mt-3">{errors.name.message}</span>}
-
-            <CustomInputWithIcon
-              label="Escribe tu correo"
-              placeholder="correo@gmail.com"
-              icon={
-                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="m22 5-10 7L2 5"/></svg>
-              }
-              type="email"
-              disabled={isSubmitting}
-              {...register('email')}
-            />
-            {errors.email && <span className="text-red-400 text-xs -mt-3">{errors.email.message}</span>}
-
-            <CustomInputWithIcon
-              label="Escribe tu numero de celular"
-              placeholder=""
-              icon={
-                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
-              }
-              type="tel"
-              disabled={isSubmitting}
-              {...register('phone')}
-            />
-            {errors.phone && <span className="text-red-400 text-xs -mt-3">{errors.phone.message}</span>}
-
-            <Controller
-              name="birthdate"
-              control={control}
-              render={({ field }) => (
-                <CustomDatePicker
-                  label="Escribe tu fecha de nacimiento"
-                  value={field.value}
-                  onChange={field.onChange}
-                  name={field.name}
-                  error={errors.birthdate?.message}
+      <div className="bg-contact-gradient pb-14 relative">
+        {/* Fondo compuesto con ambas imágenes, mascota muy grande */}
+        <div
+          className="absolute inset-0 w-full h-full z-0 hidden md:block"
+          style={{
+            backgroundImage: `url('/contact-pet-desktop.png')`,
+            backgroundPosition: 'bottom -1px left, top left',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: '100% auto',
+            pointerEvents: 'none',
+          }}
+        />
+        <div
+          className="absolute inset-0 w-full h-full z-0 block md:hidden"
+          style={{
+            backgroundImage: `url('/contact-pet-mobile.png'), url('/contact-cloud.png')`,
+            backgroundPosition: 'bottom -1px left 0px, top left',
+            backgroundRepeat: 'no-repeat, no-repeat',
+            backgroundSize: '100% auto, 100% 140px',
+            pointerEvents: 'none',
+          }}
+        />
+        {/* Contenido principal envuelto para z-index */}
+        <div className="relative z-10">
+          <div className="max-w-6xl mx-auto flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-start h-[1061px] md:h-[598px] z-20">
+            {/* Título */}
+            <div className="flex flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
+              <OutlinedTitle>CONTACTO</OutlinedTitle>
+              <p className='block md:hidden text-p-mobile text-mainlight font-normal font-economica mt-2 mx-[20px] text-center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
+            </div>
+            {/* Formulario */}
+            <div className='flex md:justify-end w-full md:mt-[117px]'>
+              <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent flex flex-col gap-4 mx-[20px] md:mx-[0px] w-[calc(100%-40px)] md:w-[326px] md:pr-[15px]">
+                <CustomInput
+                  label="Escribe tu nombre"
+                  placeholder=""
                   disabled={isSubmitting}
+                  {...register('name')}
                 />
-              )}
-            />
+                {errors.name && <span className="text-red-400 text-xs -mt-3">{errors.name.message}</span>}
 
-            <Button type="submit" className="primary" disabled={isSubmitting}>
-              {isSubmitting ? <><span>Enviando</span><DotsLoader /></> : 'REGISTRARSE'}
-            </Button>
-          </form>
-          </div>
-          <div className='grid md:hidden grid-cols-2 gap-4'>
-            <p className='text-form-disclaimer-mobile text-mainlight font-normal font-economica mx-[20px]'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros <a href="#" className='hover:underline'>Términos y Condiciones</a>.</p>
+                <CustomInputWithIcon
+                  label="Escribe tu correo"
+                  placeholder="correo@gmail.com"
+                  icon={
+                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><path d="m22 5-10 7L2 5" /></svg>
+                  }
+                  type="email"
+                  disabled={isSubmitting}
+                  {...register('email')}
+                />
+                {errors.email && <span className="text-red-400 text-xs -mt-3">{errors.email.message}</span>}
+
+                <CustomInputWithIcon
+                  label="Escribe tu numero de celular"
+                  placeholder=""
+                  icon={
+                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2" /><path d="M11 18h2" /></svg>
+                  }
+                  type="tel"
+                  disabled={isSubmitting}
+                  {...register('phone')}
+                />
+                {errors.phone && <span className="text-red-400 text-xs -mt-3">{errors.phone.message}</span>}
+
+                <Controller
+                  name="birthdate"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomDatePicker
+                      label="Escribe tu fecha de nacimiento"
+                      value={field.value}
+                      onChange={field.onChange}
+                      name={field.name}
+                      error={errors.birthdate?.message}
+                      disabled={isSubmitting}
+                    />
+                  )}
+                />
+
+                <Button type="submit" className="primary" disabled={isSubmitting}>
+                  {isSubmitting ? <><span>Enviando</span><DotsLoader /></> : 'REGISTRARSE'}
+                </Button>
+              </form>
+            </div>
+            <div className='grid md:hidden grid-cols-2 gap-4'>
+              <p className='text-form-disclaimer-mobile text-mainlight font-normal font-economica mx-[20px]'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros <a href="#" className='hover:underline'>Términos y Condiciones</a>.</p>
+            </div>
           </div>
         </div>
       </div>

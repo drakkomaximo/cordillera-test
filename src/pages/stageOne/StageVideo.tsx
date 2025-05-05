@@ -11,7 +11,6 @@ const StageVideo = () => {
       } else {
         videoRef.current.play();
       }
-      // No cambiar isPlaying aquí, lo harán los eventos onPlay/onPause
     }
   };
 
@@ -31,7 +30,6 @@ const StageVideo = () => {
 
   return (
     <div className="relative w-[375px] h-[220px] md:w-[537px] md:h-[392px] border-4 border-mainlight overflow-hidden bg-black mt-[66px] md:mt-[0px]">
-      {/* Video */}
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
@@ -43,14 +41,18 @@ const StageVideo = () => {
         tabIndex={0}
         style={{ cursor: 'pointer' }}
       />
-      {/* Imagen de llamas con transición */}
       <img
-        src="/home-flame-video.png"
+        src="/home-flame-video-desktop.png"
         alt="llamas"
-        className={`absolute -bottom-[30px] bg-cover bg-no-repeat left-0 w-[537px] pointer-events-none select-none transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'}`}
+        className={`absolute -bottom-[30px] bg-cover bg-no-repeat left-0 w-[537px] pointer-events-none select-none transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'} md:block hidden`}
         style={{ zIndex: 2 }}
       />
-      {/* Botón play con transición */}
+      <img
+        src="/home-flame-video-mobile.png"
+        alt="llamas"
+        className={`absolute -bottom-[0px] bg-cover bg-no-repeat left-0 w-[375px] pointer-events-none select-none transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'} block md:hidden`}
+        style={{ zIndex: 2 }}
+      />
       <button
         onClick={handlePlay}
         className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-[60px] h-[60px] flex items-center justify-center z-10 hover:scale-110 transition-opacity duration-500 ${isPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
