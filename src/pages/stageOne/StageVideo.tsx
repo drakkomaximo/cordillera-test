@@ -30,7 +30,7 @@ const StageVideo = () => {
   };
 
   return (
-    <div className="relative w-[537px] h-[392px] border-4 border-mainlight overflow-hidden bg-black">
+    <div className="relative w-[375px] h-[220px] md:w-[537px] md:h-[392px] border-4 border-mainlight overflow-hidden bg-black mt-[66px] md:mt-[0px]">
       {/* Video */}
       <video
         ref={videoRef}
@@ -57,7 +57,7 @@ const StageVideo = () => {
         style={{ zIndex: 3 }}
         aria-label="Play video"
       >
-        <img src="/home-video-play.svg" alt="Play" className="w-[60px] h-[60px]" />
+        <img src="/home-video-play.svg" alt="Play" className="w-[32px] h-[31px] md:w-[60px] md:h-[60px]" />
       </button>
     </div>
   );

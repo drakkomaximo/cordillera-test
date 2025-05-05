@@ -24,8 +24,10 @@ module.exports = {
         'p-mobile': ['16px', { lineHeight: '24px' }],
         // Outlined Title
         'outlined-title-desktop': ['84px', { lineHeight: '105%' }],
+        'outlined-title-mobile': ['52px', { lineHeight: '105%' }],
         // Form
         'form-label-desktop': ['16px', { lineHeight: '150%' }],
+        'form-disclaimer-mobile': ['12px', { lineHeight: '150%' }],
         // CTA
         'cta-desktop': ['30px', { lineHeight: '30px' }],
         'cta-mobile': ['20px', { lineHeight: '20px' }],

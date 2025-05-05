@@ -36,15 +36,17 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-14">
+    <section className="pt-0 pb-12 md:py-14 md:h-auto">
       <div className="bg-contact-gradient pb-14">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start h-[598px]">
+        <div className="max-w-6xl mx-auto flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-start h-[1061px] md:h-[598px]">
           {/* Título */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
             <OutlinedTitle>CONTACTO</OutlinedTitle>
+            <p className='block md:hidden text-p-mobile text-mainlight font-normal font-economica mt-2 mx-[20px] text-center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
           </div>
           {/* Formulario */}
-          <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent flex flex-col gap-4">
+          <div className='flex md:justify-end w-full md:mt-[117px]'>
+          <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent flex flex-col gap-4 mx-[20px] md:mx-[0px] w-[calc(100%-40px)] md:w-[326px] md:pr-[15px]">
             <CustomInput
               label="Escribe tu nombre"
               placeholder=""
@@ -95,11 +97,15 @@ const ContactSection = () => {
               REGISTRARSE
             </Button>
           </form>
+          </div>
+          <div className='grid md:hidden grid-cols-2 gap-4'>
+            <p className='text-form-disclaimer-mobile text-mainlight font-normal font-economica mx-[20px]'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros <a href="#" className='hover:underline'>Términos y Condiciones</a>.</p>
+          </div>
         </div>
       </div>
       {/* Franja blanca inferior */}
-      <div className="bg-white py-4 w-full h-[108px]">
-        <div className="max-w-6xl mx-auto flex flex-col items-center justify-between text-black text-sm gap-2">
+      <div className="bg-white py-0 px-4 md:px-0 md:py-4 w-full h-[72px] md:h-[108px]">
+        <div className="max-w-6xl mx-auto flex flex-col items-start md:items-center justify-between text-black text-sm gap-2">
           <span className='font-frente text-p-desktop font-normal'>Cordillera Festival 2025 ©</span>
           <div className="flex gap-10 font-economica text-p-mobile font-normal">
             <a href="#" className="hover:underline">Política de privacidad</a>
