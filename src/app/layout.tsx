@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ContactSection from "../components/layout/ContactSection";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,9 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-maindark h-screen w-full">
+    <html lang="es" className="bg-black">
+      <body className="h-screen w-full">
         {children}
+        <ContactSection />
       </body>
     </html>
   );
