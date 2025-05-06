@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// Declaración global para evitar errores de tipado con window.YT
 declare global {
   interface Window {
     YT: any;
@@ -20,13 +19,14 @@ import Image from 'next/image';
 const YOUTUBE_VIDEO_ID = 'KKfVPDH-n1s';
 
 const StageYouTubeVideo = () => {
-  const playerRef = useRef<YTPlayer | null>(null);
+  const playerRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showPlayer, setShowPlayer] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isReady, setIsReady] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  // Cargar el script de la API de YouTube solo una vez
   useEffect(() => {
+    if (!showPlayer) return;
     if (window.YT && window.YT.Player) {
       createPlayer();
     } else {
@@ -35,15 +35,14 @@ const StageYouTubeVideo = () => {
       document.body.appendChild(tag);
       window.onYouTubeIframeAPIReady = createPlayer;
     }
-    // Limpieza
     return () => {
       if (playerRef.current) {
         playerRef.current.destroy();
       }
     };
-  }, []);
+    // eslint-disable-next-line
+  }, [showPlayer]);
 
-  // Crear el reproductor de YouTube
   const createPlayer = () => {
     if (!containerRef.current) return;
     playerRef.current = new window.YT.Player(containerRef.current, {
@@ -57,46 +56,43 @@ const StageYouTubeVideo = () => {
         iv_load_policy: 3,
         disablekb: 1,
         playsinline: 1,
+        cc_load_policy: 0,
+        autohide: 1,
+        enablejsapi: 1,
       },
       events: {
-        onReady: () => setIsReady(true),
+        onReady: () => {
+          if (playerRef.current) {
+            playerRef.current.playVideo();
+          }
+        },
         onStateChange: (event: { data: number }) => {
           if (event.data === window.YT.PlayerState.PLAYING) setIsPlaying(true);
           else setIsPlaying(false);
-          if (event.data === window.YT.PlayerState.ENDED) {
-            playerRef.current?.seekTo(0);
-            playerRef.current?.pauseVideo();
-          }
         },
       },
     });
   };
 
-  // Play/Pause personalizado
-  const handlePlayPause = () => {
-    if (!playerRef.current) return;
-    if (isPlaying) {
-      playerRef.current.pauseVideo();
-    } else {
+  const fadeClass = isPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto';
+
+  const handleGlobalClick = () => {
+    if (showPlayer && playerRef.current) {
       playerRef.current.playVideo();
+    } else {
+      setShowPlayer(true);
     }
   };
 
   return (
-    <div className="relative w-[375px] h-[220px] md:w-[537px] md:h-[392px] border-4 border-mainlight overflow-hidden bg-black mt-[66px] md:mt-[0px]">
-      {/* YouTube Player sin UI */}
-      <div
-        ref={containerRef}
-        className="w-full h-full"
-        style={{ pointerEvents: 'none' }}
-      />
-      {/* Imagen de llamas con transición */}
+    <div className="relative w-full max-w-[375px] h-[220px] md:max-w-[537px] md:h-[392px] border-4 border-mainlight overflow-hidden mt-0">
+      <div className={`absolute inset-0 bg-[#15151E] transition-opacity duration-500 ${fadeClass}`} style={{ zIndex: 1 }} />
       <Image
         src="/home-flame-video-desktop.png"
         alt="llamas"
         width={537}
         height={60}
-        className={`absolute -bottom-[30px] bg-cover bg-no-repeat left-0 w-[537px] pointer-events-none select-none transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'} md:block hidden`}
+        className={`absolute -bottom-[30px] bg-cover bg-no-repeat left-0 w-[537px] select-none md:block hidden transition-opacity duration-500 ${fadeClass}`}
         style={{ zIndex: 2 }}
         priority={false}
       />
@@ -105,20 +101,34 @@ const StageYouTubeVideo = () => {
         alt="llamas"
         width={375}
         height={60}
-        className={`absolute -bottom-[0px] bg-cover bg-no-repeat left-0 w-[375px] pointer-events-none select-none transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'} block md:hidden`}
+        className={`absolute -bottom-[0px] bg-cover bg-no-repeat left-0 w-[375px] select-none block md:hidden transition-opacity duration-500 ${fadeClass}`}
         style={{ zIndex: 2 }}
         priority={false}
       />
-      {/* Botón play/pausa personalizado */}
+      {!isPlaying && (
+        <div
+          className={`absolute inset-0 z-20 ${fadeClass}`}
+          onClick={handleGlobalClick}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          style={{ cursor: 'pointer' }}
+        />
+      )}
       <button
-        onClick={handlePlayPause}
-        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-[60px] h-[60px] flex items-center justify-center z-10 hover:scale-110 transition-opacity duration-500 ${isPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-        style={{ zIndex: 3 }}
-        aria-label={isPlaying ? 'Pausar video' : 'Reproducir video'}
-        disabled={!isReady}
+        tabIndex={-1}
+        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-[60px] h-[60px] flex items-center justify-center z-30 transition-all duration-500 ${fadeClass} ${isHovered ? 'scale-110' : 'scale-100'}`}
+        aria-label="Reproducir video"
+        type="button"
+        style={{ pointerEvents: 'none' }}
       >
         <Image src="/home-video-play.svg" alt="Play" width={60} height={60} className="w-[32px] h-[31px] md:w-[60px] md:h-[60px]" />
       </button>
+      {showPlayer && (
+        <div
+          ref={containerRef}
+          className="w-full h-full"
+        />
+      )}
     </div>
   );
 };

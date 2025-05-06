@@ -2,7 +2,7 @@
 
 import Banner from './Banner';
 import StageInfo from './StageInfo';
-import StageVideo from './StageVideo';
+import StageYouTubeVideo from './StageYouTubeVideo';
 
 const StageOne = () => {
   return (
@@ -11,7 +11,7 @@ const StageOne = () => {
       <div className='grid grid-cols-1 sm:grid-cols-2 sm:m-8 lg:mt-14 lg:mb-0 gap-8 max-w-[1440px] mx-auto'>
         <StageInfo />
         <div className="flex justify-center md:justify-end items-center">
-          <StageVideo />
+          <StageYouTubeVideo />
         </div>
       </div>
     </section>

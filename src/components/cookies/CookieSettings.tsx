@@ -83,17 +83,20 @@ const CookieSettings = () => {
     <div className={`fixed inset-0 bg-black/80 z-50 flex items-center justify-center transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       <div className={`bg-[#F7EFE5] border border-black w-full max-w-[353px] md:max-w-[838px] p-6 shadow-lg relative z-10 transition-all duration-300 transform ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
         <button
-          className="absolute top-8 right-7 md:top-10 md:right-10 border border-black px-1 py-1 text-black font-bold leading-none hover:bg-black hover:text-white transition"
+          className="absolute top-7 right-7 md:top-10 md:right-10 border border-black px-1 py-1 font-bold leading-none bg-transparent hover:bg-black transition group"
           onClick={() => { closeSettings(); closeBanner(); }}
           aria-label="Cerrar configuración de cookies"
         >
-          <Image
-            src="/cookie-close-icon.svg"
-            alt="Toggle"
-            width={7}
-            height={12}
-            className='w-[7px] h-[12px] md:w-[14px] md:h-[24px]'
-          />
+          <svg
+            width="8"
+            height="13"
+            viewBox="0 0 8 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-[7px] h-[12px] md:w-[14px] md:h-[24px] text-black group-hover:text-white transition-colors"
+          >
+            <path d="M7.49805 0.571426L5.24805 6.40476L7.49805 12.2381H4.99805L3.99805 9.65476L2.99805 12.2381H0.498047L2.74805 6.40476L0.498047 0.571426H2.99805L3.99805 3.17143L4.99805 0.571426H7.49805Z" fill="currentColor"/>
+          </svg>
         </button>
         <h2 className="font-frente text-p-desktop md:text-h1-mobile font-normal text-black mb-2">{cookiesSettingsData.title}</h2>
         <p className="text-black font-economica text-[10px] md:text-[16px] mb-4">
@@ -171,7 +174,7 @@ const CookieSettings = () => {
           </button>
         </div>
         <button
-          className="w-full bg-black text-white py-1 px-4 font-economica text-lg rounded hover:bg-gray-800 transition"
+          className="w-full bg-black text-white py-1 px-4 font-economica text-lg rounded hover:bg-transparent hover:text-black border border-black transition"
           onClick={() => saveConsent(localConsent)}
         >
           Guardar la configuración

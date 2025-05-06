@@ -84,12 +84,21 @@ const CookieBanner = () => {
         <div className="flex justify-between items-start">
           <h2 className="font-frente text-[32px] md:text-[36px] font-bold text-black">COOKIES</h2>
           <button
-            className="border border-black px-2 py-1 text-black font-bold text-lg leading-none hover:bg-black hover:text-white transition"
-            onClick={closeBanner}
-            aria-label="Cerrar aviso de cookies"
+          className="absolute top-7 right-7 md:top-10 md:right-10 border border-black px-1 py-1 font-bold leading-none bg-transparent hover:bg-black transition group"
+          onClick={() => { closeBanner(); }}
+          aria-label="Cerrar configuración de cookies"
+        >
+          <svg
+            width="8"
+            height="13"
+            viewBox="0 0 8 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-[7px] h-[12px] md:w-[14px] md:h-[24px] text-black group-hover:text-white transition-colors"
           >
-            X
-          </button>
+            <path d="M7.49805 0.571426L5.24805 6.40476L7.49805 12.2381H4.99805L3.99805 9.65476L2.99805 12.2381H0.498047L2.74805 6.40476L0.498047 0.571426H2.99805L3.99805 3.17143L4.99805 0.571426H7.49805Z" fill="currentColor"/>
+          </svg>
+        </button>
         </div>
         <p className="text-black font-economica text-[15px] md:text-[16px] mt-2 mb-4">
           En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias.
