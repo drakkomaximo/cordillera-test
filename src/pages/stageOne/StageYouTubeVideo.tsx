@@ -1,16 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {
   interface Window {
-    YT: any;
+    YT: {
+      Player: {
+        new (elementId: string | HTMLElement, options: unknown): {
+          playVideo: () => void;
+          pauseVideo: () => void;
+          seekTo: (seconds: number) => void;
+          destroy: () => void;
+        };
+      };
+      PlayerState: {
+        PLAYING: number;
+      };
+    };
     onYouTubeIframeAPIReady: () => void;
   }
-}
-
-interface YTPlayer {
-  playVideo: () => void;
-  pauseVideo: () => void;
-  seekTo: (seconds: number) => void;
-  destroy: () => void;
 }
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -19,7 +23,7 @@ import Image from 'next/image';
 const YOUTUBE_VIDEO_ID = 'KKfVPDH-n1s';
 
 const StageYouTubeVideo = () => {
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<InstanceType<typeof window.YT.Player> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [showPlayer, setShowPlayer] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -40,7 +44,6 @@ const StageYouTubeVideo = () => {
         playerRef.current.destroy();
       }
     };
-    // eslint-disable-next-line
   }, [showPlayer]);
 
   const createPlayer = () => {

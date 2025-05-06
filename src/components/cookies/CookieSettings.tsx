@@ -38,7 +38,7 @@ const CookieSettings = () => {
       document.body.classList.remove('overflow-hidden');
       document.body.style.overflow = '';
     };
-  }, [showSettings]);
+  }, [showSettings, shouldRender]);
 
   const toggleAccordion = (key: string) => {
     setOpenAccordion(openAccordion === key ? null : key);

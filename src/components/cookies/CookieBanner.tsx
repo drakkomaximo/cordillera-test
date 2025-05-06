@@ -52,7 +52,7 @@ const CookieBanner = () => {
       const timeout = setTimeout(() => setShouldRender(false), ANIMATION_DURATION);
       return () => clearTimeout(timeout);
     }
-  }, [showBanner]);
+  }, [showBanner, shouldRender]);
 
   useEffect(() => {
     if (showBanner || showSettings) {
