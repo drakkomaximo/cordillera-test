@@ -216,7 +216,7 @@ const ContactSection = () => {
                       )}
                     />
 
-                    <p className='w-full text-form-disclaimer-mobile text-mainlight font-normal font-economica -mt-[20px]'>
+                    <p className='w-full text-form-disclaimer-mobile text-mainlight font-normal font-economica -mt-[20px] md:w-[90%]'>
                       <span className='text-center md:text-left'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros Términos y Condiciones</span>
                     </p>
 
