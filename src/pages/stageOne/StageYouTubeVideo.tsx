@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Declaración global para evitar errores de tipado con window.YT
 declare global {
   interface Window {
@@ -40,7 +41,6 @@ const StageYouTubeVideo = () => {
         playerRef.current.destroy();
       }
     };
-    // eslint-disable-next-line
   }, []);
 
   // Crear el reproductor de YouTube
@@ -60,7 +60,7 @@ const StageYouTubeVideo = () => {
       },
       events: {
         onReady: () => setIsReady(true),
-        onStateChange: (event: any) => {
+        onStateChange: (event: { data: number }) => {
           if (event.data === window.YT.PlayerState.PLAYING) setIsPlaying(true);
           else setIsPlaying(false);
           if (event.data === window.YT.PlayerState.ENDED) {

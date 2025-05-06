@@ -106,9 +106,9 @@ const ContactSection = () => {
             {
               !isSuccess && (
                 <div className="flex flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
-              <OutlinedTitle>CONTACTO</OutlinedTitle>
-              <p className='block md:hidden text-p-mobile text-mainlight font-normal font-economica mt-2 mx-[20px] text-center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
-            </div>
+                  <OutlinedTitle>CONTACTO</OutlinedTitle>
+                  <p className='block md:hidden text-p-mobile text-mainlight font-normal font-economica mt-2 mx-[20px] text-center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
+                </div>
               )
             }
             <div className='flex md:justify-center w-full md:mt-[67px]'>
@@ -157,10 +157,10 @@ const ContactSection = () => {
                     placeholder=""
                     icon={
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.535 0.807967C12.779 0.0519668 11.463 0.0519668 10.707 0.807967L0.807999 10.707C0.433301 11.0822 0.222839 11.5907 0.222839 12.121C0.222839 12.6512 0.433301 13.1598 0.807999 13.535L6.465 19.192C6.843 19.57 7.345 19.778 7.879 19.778C8.413 19.778 8.915 19.57 9.293 19.192L19.192 9.29297C19.57 8.91497 19.778 8.41297 19.778 7.87897C19.778 7.34497 19.57 6.84297 19.192 6.46497L13.535 0.807967ZM7.879 17.778L2.222 12.121L12.121 2.22197L17.778 7.87897L7.879 17.778Z" fill="#E9DDB5"/>
-<path d="M7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z" fill="#E9DDB5"/>
-<path d="M13.707 19.707L12.293 18.293L18.293 12.293L19.707 13.708L13.707 19.707ZM6.29303 0.292969L7.70703 1.70697L1.70703 7.70697L0.29303 6.29197L6.29303 0.292969Z" fill="#E9DDB5"/>
-</svg>
+                        <path d="M13.535 0.807967C12.779 0.0519668 11.463 0.0519668 10.707 0.807967L0.807999 10.707C0.433301 11.0822 0.222839 11.5907 0.222839 12.121C0.222839 12.6512 0.433301 13.1598 0.807999 13.535L6.465 19.192C6.843 19.57 7.345 19.778 7.879 19.778C8.413 19.778 8.915 19.57 9.293 19.192L19.192 9.29297C19.57 8.91497 19.778 8.41297 19.778 7.87897C19.778 7.34497 19.57 6.84297 19.192 6.46497L13.535 0.807967ZM7.879 17.778L2.222 12.121L12.121 2.22197L17.778 7.87897L7.879 17.778Z" fill="#E9DDB5" />
+                        <path d="M7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z" fill="#E9DDB5" />
+                        <path d="M13.707 19.707L12.293 18.293L18.293 12.293L19.707 13.708L13.707 19.707ZM6.29303 0.292969L7.70703 1.70697L1.70703 7.70697L0.29303 6.29197L6.29303 0.292969Z" fill="#E9DDB5" />
+                      </svg>
 
                     }
                     type="tel"
@@ -184,12 +184,10 @@ const ContactSection = () => {
                     )}
                   />
 
-                  <div className='md:flex hidden gap-4'>
-                    <p className='flex flex-col text-form-disclaimer-mobile text-mainlight font-normal font-economica -mt-[20px]'>
-                      <span>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros Términos y</span>
-                      <span>Condiciones</span>
-                    </p>
-                  </div>
+                  <p className='w-full flex flex-col justify-center text-form-disclaimer-mobile text-mainlight font-normal font-economica -mt-[20px]'>
+                    <span className='text-center md:text-left'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros Términos y</span>
+                    <span className='text-center md:text-left'>Condiciones</span>
+                  </p>
 
                   <Button type="submit" className="primary" disabled={isSubmitting}>
                     {isSubmitting ? <><span>Enviando</span><DotsLoader /></> : 'REGISTRARSE'}
@@ -197,20 +195,13 @@ const ContactSection = () => {
                 </form>
               )}
             </div>
-            {
-              !isSuccess ? (
-                <div className='flex justify-center items-center gap-4'>
-              <p className='text-form-disclaimer-mobile text-mainlight font-normal font-economica mx-[20px] text-center'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros <a href="#" className='hover:underline'>Términos y Condiciones</a>.</p>
-            </div>
-              ) : null
-            }
           </div>
         </div>
       </div>
       <div className="bg-white py-0 px-4 md:px-0 md:py-4 w-full h-[72px] md:h-[108px]">
         <div className="max-w-6xl mx-auto flex flex-col items-start md:items-center justify-between text-black text-sm gap-2">
           <span className='font-frente text-p-desktop font-normal'>Cordillera Festival 2025 ©</span>
-          <div className="flex gap-10 font-economica text-p-mobile text-[12px] font-normal">
+          <div className="flex gap-12 md:gap-10 font-economica md:text-p-mobile text-[12px] font-normal">
             <a href="#" className="hover:underline">Política de privacidad</a>
             <a href="#" className="hover:underline">Términos y condiciones</a>
             <a href="#" className="hover:underline" onClick={e => { e.preventDefault(); openCookieSettings(); }}>Política de Cookies</a>
