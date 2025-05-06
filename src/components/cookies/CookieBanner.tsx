@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useCookieStore } from '../../store/cookies';
 
+const ANIMATION_DURATION = 300; // ms
+
 function getInitialConsent() {
   if (typeof window !== 'undefined') {
     const match = document.cookie.match(/cookieConsent=([^;]+)/);
@@ -30,7 +32,8 @@ function hasValidConsentCookie() {
 
 const CookieBanner = () => {
   const { showBanner, showSettings, acceptAll, openSettings, closeBanner } = useCookieStore();
-  const [visible, setVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
     const show = !hasValidConsentCookie();
@@ -41,8 +44,14 @@ const CookieBanner = () => {
   }, []);
 
   useEffect(() => {
-    if (showBanner) setVisible(true);
-    else setVisible(false);
+    if (showBanner) {
+      setShouldRender(true);
+      setTimeout(() => setIsVisible(true), 50);
+    } else if (shouldRender) {
+      setIsVisible(false);
+      const timeout = setTimeout(() => setShouldRender(false), ANIMATION_DURATION);
+      return () => clearTimeout(timeout);
+    }
   }, [showBanner]);
 
   useEffect(() => {
@@ -59,16 +68,16 @@ const CookieBanner = () => {
     };
   }, [showBanner, showSettings]);
 
-  if (!showBanner) return null;
+  if (!shouldRender) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
-      <div className="absolute inset-0 bg-black bg-opacity-80 pointer-events-auto transition-opacity duration-500" />
+      <div className={`absolute inset-0 bg-black bg-opacity-80 pointer-events-auto transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
       <div
         className={`
           relative w-full md:max-w-2xl mx-auto bg-[#F7EFE5] border border-black p-4 md:p-6 shadow-lg z-10
-          transition-all duration-500
-          ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}
+          transition-all duration-300
+          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}
         `}
         style={{ willChange: 'opacity, transform' }}
       >

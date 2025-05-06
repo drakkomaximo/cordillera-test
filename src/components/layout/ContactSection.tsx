@@ -79,8 +79,8 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="pt-0 md:pt-14 md:h-auto">
-      <div className="bg-contact-gradient pb-14 relative">
+    <section className="bg-contact-gradient pt-0 md:pt-14 md:h-auto">
+      <div className="pb-14 relative max-w-[1440px] mx-auto">
         <div
           className="absolute inset-0 w-full h-full z-0 hidden md:block"
           style={{
@@ -103,9 +103,13 @@ const ContactSection = () => {
         />
         <div className="relative z-10">
           <div className={`max-w-6xl mx-auto flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-start h-[1061px] md:h-[598px] z-20 ${!isSuccess ? 'h-[1001px]' : 'h-[458px]'}`}>
+            
+          <div className="hidden md:flex flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
+                  <OutlinedTitle>CONTACTO</OutlinedTitle>
+                </div>
             {
               !isSuccess && (
-                <div className="flex flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
+                <div className="flex md:hidden flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
                   <OutlinedTitle>CONTACTO</OutlinedTitle>
                   <p className='block md:hidden text-p-mobile text-mainlight font-normal font-economica mt-2 mx-[20px] text-center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
                 </div>
@@ -199,7 +203,7 @@ const ContactSection = () => {
         </div>
       </div>
       <div className="bg-white py-0 px-4 md:px-0 md:py-4 w-full h-[72px] md:h-[108px]">
-        <div className="max-w-6xl mx-auto flex flex-col items-start md:items-center justify-between text-black text-sm gap-2">
+        <div className="flex flex-col items-start md:items-center justify-between text-black text-sm gap-2 max-w-[1440px] mx-auto">
           <span className='font-frente text-p-desktop font-normal'>Cordillera Festival 2025 ©</span>
           <div className="flex gap-12 md:gap-10 font-economica md:text-p-mobile text-[12px] font-normal">
             <a href="#" className="hover:underline">Política de privacidad</a>

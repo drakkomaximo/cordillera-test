@@ -8,7 +8,7 @@ const StageOne = () => {
   return (
     <section className='bg-black px-0 md:px-[100px]'>
       <Banner />
-      <div className='grid grid-cols-1 md:grid-cols-2 md:mt-[77.5px] md:mb-[0px] gap-8'>
+      <div className='grid grid-cols-1 md:grid-cols-2 md:mt-[77.5px] md:mb-[0px] gap-8 max-w-[1440px] mx-auto'>
         <StageInfo />
         <div className="flex justify-center items-center">
           <StageVideo />

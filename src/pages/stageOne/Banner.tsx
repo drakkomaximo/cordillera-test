@@ -12,7 +12,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className={`relative w-full ${isMobile ? 'h-[328px]' : 'h-[550px]'}`}>
+    <div className={`relative w-full ${isMobile ? 'h-[328px]' : 'h-[550px]'} max-w-[1440px] mx-auto`}>
       <Image
         src={isMobile ? '/home-banner-mobile.png' : '/home-banner-desktop.png'}
         alt="home-banner"

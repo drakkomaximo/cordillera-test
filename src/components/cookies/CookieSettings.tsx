@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useCookieStore, CookieConsent } from '../../store/cookies';
+import Image from 'next/image';
+
+const ANIMATION_DURATION = 300; // ms
 
 const CookieSettings = () => {
   const {
@@ -10,18 +13,26 @@ const CookieSettings = () => {
     saveConsent,
     acceptAll,
     rejectAll,
+    closeBanner,
     closeSettings,
   } = useCookieStore();
   const [localConsent, setLocalConsent] = useState<CookieConsent>(consent);
+  const [isVisible, setIsVisible] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState<string | null>('essential');
 
-  // Bloquear scroll cuando el modal está visible (clase y estilo inline)
   useEffect(() => {
     if (showSettings) {
+      setShouldRender(true);
+      setTimeout(() => setIsVisible(true), 50);
       document.body.classList.add('overflow-hidden');
       document.body.style.overflow = 'hidden';
-    } else {
+    } else if (shouldRender) {
+      setIsVisible(false);
       document.body.classList.remove('overflow-hidden');
       document.body.style.overflow = '';
+      const timeout = setTimeout(() => setShouldRender(false), ANIMATION_DURATION);
+      return () => clearTimeout(timeout);
     }
     return () => {
       document.body.classList.remove('overflow-hidden');
@@ -29,132 +40,112 @@ const CookieSettings = () => {
     };
   }, [showSettings]);
 
-  // Estado para acordeones
-  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
   const toggleAccordion = (key: string) => {
     setOpenAccordion(openAccordion === key ? null : key);
   };
 
-  if (!showSettings) return null;
+  if (!shouldRender) return null;
 
   const handleSwitch = (key: keyof CookieConsent) => {
     if (key === 'essential') return; // Essential siempre activo
     setLocalConsent((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const cookiesSettingsData = {
+    title: 'ADMINISTRAR COOKIES',
+    description: 'En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias. Al bloquear ciertos tipos de cookies, es posible que algunas experiencias en el sitio web y límite los servicios que te podemos prestar.',
+    cookies: [
+      {
+        name: 'essential',
+        title: 'Cookies esenciales',
+        enabled: true,
+        enabledDescription: 'Siempre activas',
+        description: 'En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias. Al bloquear ciertos tipos de cookies, es posible que algunas experiencias en el sitio web y límite los servicios que te podemos prestar.',
+      },
+      {
+        name: 'analytics',
+        title: 'Cookies analíticas',
+        enabled: true,
+        enabledDescription: null,
+        description: 'Estas cookies nos ayudan a entender cómo interactúas con nuestro sitio, recopilando información para crear informes de uso. Además, los datos recopilados pueden combinarse con cookies de publicidad para mostrar anuncios relevantes y medir su efectividad.',
+      },
+      {
+        name: 'marketing',
+        title: 'Cookies de marketing',
+        enabled: true,
+        enabledDescription: null,
+        description: 'Utilizamos cookies para que los anuncios que ves sean relevantes, a tu gusto y útiles. Estas cookies mejoran el rendimiento de nuestras campañas publicitarias y evitan que veas repetidamente los mismos anuncios. Seleccionan anuncios basados en tus intereses y visitas anteriores.',
+      },
+    ],
+  };
+
   return (
-    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center">
-      <div className="bg-[#F7EFE5] border border-black w-full max-w-2xl p-6 shadow-lg relative z-10">
+    <div className={`fixed inset-0 bg-black/80 z-50 flex items-center justify-center transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`bg-[#F7EFE5] border border-black w-full max-w-2xl p-6 shadow-lg relative z-10 transition-all duration-300 transform ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
         <button
           className="absolute top-7 right-7 md:top-10 md:right-10 border border-black px-1 py-1 text-black font-bold text-[10px] md:text-[28px] leading-none hover:bg-black hover:text-white transition"
-          onClick={closeSettings}
+          onClick={() => { closeSettings(); closeBanner(); }}
           aria-label="Cerrar configuración de cookies"
         >
           X
         </button>
-        <h2 className="font-frente text-p-mobile-mobile md:text-h1-mobile font-normal text-black mb-2">ADMINISTRAR COOKIES</h2>
+        <h2 className="font-frente text-p-mobile-mobile md:text-h1-mobile font-normal text-black mb-2">{cookiesSettingsData.title}</h2>
         <p className="text-black font-economica text-[10px] md:text-[16px] mb-4">
-          En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias. Al bloquear ciertos tipos de cookies, es posible que algunas experiencias en el sitio web y límite los servicios que te podemos prestar.
+          {cookiesSettingsData.description}
         </p>
         <div className="border-b border-black mb-4" />
-        {/* Essential - Acordeón */}
-        <div className="border-b border-black">
-          <button
-            className="flex items-center w-full py-2 focus:outline-none"
-            onClick={() => toggleAccordion('essential')}
-            aria-expanded={openAccordion === 'essential'}
-          >
-            <span className="mr-2">{openAccordion === 'essential' ? <svg className="rotate-90" width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-              : <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>}</span>
-            <span className="font-economica text-sm md:text-lg font-bold">Cookies esenciales</span>
-            <span className="ml-auto text-green-700 font-economica font-bold">Siempre activas</span>
-          </button>
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${openAccordion === 'essential' ? 'max-h-40' : 'max-h-0'}`}
-            style={{}}
-          >
-            <p className="text-xs font-economica text-black px-6 pb-2 pt-1">
-            En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias. Al bloquear ciertos tipos de cookies, es posible que esto afecte tu experiencia en el sitio web y limite los servicios que te podemos prestar..
-            </p>
-          </div>
-        </div>
-        {/* Analytics - Acordeón */}
-        <div className="border-b border-black">
-          <button
-            className="flex items-center w-full py-2 focus:outline-none"
-            onClick={() => toggleAccordion('analytics')}
-            aria-expanded={openAccordion === 'analytics'}
-          >
-            <span className="mr-2">{openAccordion === 'analytics' ? <svg className="rotate-90" width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-              : <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>}</span>
-            <span className="font-economica text-sm md:text-lg font-bold">Cookies analíticas</span>
-            <span className="ml-auto">
-              <span
-                role="switch"
-                tabIndex={0}
-                aria-checked={localConsent.analytics}
-                className={`w-12 h-6 rounded-full border-2 border-black flex items-center transition ${localConsent.analytics ? 'bg-green-400' : 'bg-gray-300'}`}
-                onClick={e => { e.stopPropagation(); handleSwitch('analytics'); }}
-                style={{ cursor: 'pointer' }}
-              >
-                <span className={`block w-5 h-5 bg-white border border-black rounded-full shadow transform transition ${localConsent.analytics ? 'translate-x-6' : ''}`}></span>
+        {cookiesSettingsData.cookies.map((cookie) =>
+          <div key={cookie.name} className="border-b border-black">
+            <button
+              className="flex items-center w-full py-2 focus:outline-none"
+              onClick={() => toggleAccordion(cookie.name)}
+              aria-expanded={openAccordion === cookie.name}
+            >
+              <span className="mr-2">
+                <Image
+                  src="/cookie-arrow.svg"
+                  alt="Toggle"
+                  width={22}
+                  height={14}
+                  className={`transition-transform duration-300 ease-in-out ${openAccordion === cookie.name ? 'rotate-90' : ''}`}
+                />
               </span>
-            </span>
-          </button>
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${openAccordion === 'analytics' ? 'max-h-40' : 'max-h-0'}`}
-            style={{}}
-          >
-            <p className="text-xs font-economica text-black px-6 pb-2 pt-1">
-              Nos ayudan a entender cómo interactúas con el sitio para mejorarlo.
-            </p>
+              <span className="font-economica text-sm md:text-lg font-bold">{cookie.title}</span>
+              {cookie.enabledDescription ? (
+                <span className="ml-auto text-green-700 font-economica font-bold">Siempre activas</span>
+              ) : (
+                <span className="ml-auto">
+                  <span
+                    role="switch"
+                    tabIndex={0}
+                    aria-checked={localConsent[cookie.name as keyof CookieConsent]}
+                    className={`w-[72px] h-[24px] rounded-full border-2 border-black flex items-center transition-all duration-300 ease-in-out relative cursor-pointer select-none bg-[#191916] ${localConsent[cookie.name as keyof CookieConsent] ? '' : 'bg-[#686868]'}`}
+                    onClick={e => { e.stopPropagation(); handleSwitch(cookie.name as keyof CookieConsent); }}
+                  >
+                    <span
+                      className={`absolute top-0 left-0 w-5 h-5 rounded-full bg-[#FDEFE2] border border-black shadow-[0_2px_6px_rgba(0,0,0,0.12)] flex items-center justify-center transition-all duration-300 ease-in-out ${localConsent[cookie.name as keyof CookieConsent] ? 'translate-x-[48px]' : ''}`}
+                      style={{ boxSizing: 'border-box' }}
+                    >
+                      {localConsent[cookie.name as keyof CookieConsent] && (
+                        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5 9.5L8 12.5L13 7.5" stroke="#191916" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </span>
+                  </span>
+                </span>
+              )}
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-500 ease-in-out ${openAccordion === cookie.name ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
+            >
+              <p className="text-xs font-economica text-black px-6 pb-2 pt-1">
+                {cookie.description}
+              </p>
+            </div>
           </div>
-        </div>
-        {/* Marketing - Acordeón */}
-        <div className="border-b border-black">
-          <button
-            className="flex items-center w-full py-2 focus:outline-none"
-            onClick={() => toggleAccordion('marketing')}
-            aria-expanded={openAccordion === 'marketing'}
-          >
-            <span className="mr-2">{openAccordion === 'marketing' ? <svg className="rotate-90" width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-              : <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>}
-            </span>
-            <span className="font-economica text-sm md:text-lg font-bold">Cookies de marketing</span>
-            <span className="ml-auto">
-              <span
-                role="switch"
-                tabIndex={0}
-                aria-checked={localConsent.marketing}
-                className={`w-12 h-6 rounded-full border-2 border-black flex items-center transition ${localConsent.marketing ? 'bg-green-400' : 'bg-gray-300'}`}
-                onClick={e => { e.stopPropagation(); handleSwitch('marketing'); }}
-                style={{ cursor: 'pointer' }}
-              >
-                <span className={`block w-5 h-5 bg-white border border-black rounded-full shadow transform transition ${localConsent.marketing ? 'translate-x-6' : ''}`}></span>
-              </span>
-            </span>
-          </button>
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${openAccordion === 'marketing' ? 'max-h-40' : 'max-h-0'}`}
-            style={{}}
-          >
-            <p className="text-xs font-economica text-black px-6 pb-2 pt-1">
-              Se usan para mostrarte publicidad relevante y personalizada.
-            </p>
-          </div>
-        </div>
+        )}
+
         <div className="border-b border-black my-4" />
         <div className="grid grid-cols-2 gap-4 md:justify-between items-center mb-4">
           <button
