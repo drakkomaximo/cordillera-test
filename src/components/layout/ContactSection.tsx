@@ -7,6 +7,7 @@ import { CustomInput, CustomInputWithIcon, CustomDatePicker } from '../ui/Input'
 import OutlinedTitle from '../ui/OutlinedTitle';
 import React, { useState, useEffect } from 'react';
 import Button from '../ui/Button';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const schema = z.object({
   name: z.string().min(2, 'El nombre es requerido'),
@@ -104,96 +105,127 @@ const ContactSection = () => {
             <div className="hidden md:flex flex-col justify-center mt-[144px] md:mt-[0px] md:pt-[53px]">
               <OutlinedTitle>CONTACTO</OutlinedTitle>
             </div>
-            {
-              !isSuccess && (
-                <div className="flex md:hidden flex-col justify-center mt-[144px] md:mt-[0px] md md:pt-[53px] w-full">
+            <AnimatePresence mode="wait">
+              {!isSuccess ? (
+                <motion.div
+                  key="form"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="flex md:hidden flex-col justify-center mt-[144px] md:mt-[0px] md md:pt-[53px] w-full"
+                >
                   <OutlinedTitle>CONTACTO</OutlinedTitle>
                   <p className='block md:hidden text-p-mobile text-mainlight font-normal font-economica mt-2 mx-[20px] text-center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
-                </div>
-              )
-            }
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
             <div className='flex justify-center md:justify-end w-full md:mt-[67px]'>
-              {isSuccess ? (
-                <div className="flex flex-col items-center justify-start gap-2 md:max-w-[426px]">
-                  <div className="hidden md:flex flex-col items-left gap-0">
-                    <OutlinedTitle style={{ fontSize: '52px' }}>ENVÍO EXITOSO</OutlinedTitle>
-                    <OutlinedTitle style={{ fontSize: '52px' }}>PRONTO NOS</OutlinedTitle>
-                    <OutlinedTitle style={{ fontSize: '52px' }}>PONDREMOS EN</OutlinedTitle>
-                    <OutlinedTitle style={{ fontSize: '52px' }}>CONTACTO CONTIGO</OutlinedTitle>
-                  </div>
-                  <div className="flex md:hidden sm:w-[60%]">
-                    <OutlinedTitle style={{ fontSize: '32px', marginTop: '11rem' }} blueOutline>
-                      ENVÍO EXITOSO PRONTO NOS PONDREMOS EN CONTACTO CONTIGO
-                    </OutlinedTitle>
-                  </div>
-                </div>
-              ) : errorMsg ? (
-                <div className="p-6 bg-red-700/80 rounded text-white text-center font-frente text-xl md:text-2xl whitespace-pre-line">
-                  {errorMsg}
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent flex flex-col gap-4 mx-4 md:mx-[0px] sm:max-w-[426px]">
-                  <CustomInput
-                    label="Escribe tu nombre"
-                    placeholder=""
-                    disabled={isSubmitting}
-                    {...register('name')}
-                  />
-                  {errors.name && <span className="text-red-400 text-xs -mt-3">{errors.name.message}</span>}
+              <AnimatePresence mode="wait">
+                {isSuccess ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="flex flex-col items-center justify-start gap-2 md:max-w-[426px]"
+                  >
+                    <div className="hidden md:flex flex-col items-left gap-0">
+                      <OutlinedTitle style={{ fontSize: '52px' }}>ENVÍO EXITOSO</OutlinedTitle>
+                      <OutlinedTitle style={{ fontSize: '52px' }}>PRONTO NOS</OutlinedTitle>
+                      <OutlinedTitle style={{ fontSize: '52px' }}>PONDREMOS EN</OutlinedTitle>
+                      <OutlinedTitle style={{ fontSize: '52px' }}>CONTACTO CONTIGO</OutlinedTitle>
+                    </div>
+                    <div className="flex md:hidden sm:w-[60%]">
+                      <OutlinedTitle style={{ fontSize: '32px', marginTop: '11rem' }} blueOutline>
+                        ENVÍO EXITOSO PRONTO NOS PONDREMOS EN CONTACTO CONTIGO
+                      </OutlinedTitle>
+                    </div>
+                  </motion.div>
+                ) : errorMsg ? (
+                  <motion.div
+                    key="error"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="p-6 bg-red-700/80 rounded text-white text-center font-frente text-xl md:text-2xl whitespace-pre-line"
+                  >
+                    {errorMsg}
+                  </motion.div>
+                ) : (
+                  <motion.form
+                    key="form"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="bg-transparent flex flex-col gap-4 mx-4 md:mx-[0px] sm:max-w-[426px]"
+                  >
+                    <CustomInput
+                      label="Escribe tu nombre y apellidos"
+                      placeholder=""
+                      disabled={isSubmitting}
+                      {...register('name')}
+                    />
+                    {errors.name && <span className="text-red-400 text-xs -mt-3">{errors.name.message}</span>}
 
-                  <CustomInputWithIcon
-                    label="Escribe tu correo"
-                    placeholder="correo@gmail.com"
-                    icon={
-                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><path d="m22 5-10 7L2 5" /></svg>
-                    }
-                    type="email"
-                    disabled={isSubmitting}
-                    {...register('email')}
-                  />
-                  {errors.email && <span className="text-red-400 text-xs -mt-3">{errors.email.message}</span>}
+                    <CustomInputWithIcon
+                      label="Escribe tu correo"
+                      placeholder="correo@gmail.com"
+                      icon={
+                        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><path d="m22 5-10 7L2 5" /></svg>
+                      }
+                      type="email"
+                      disabled={isSubmitting}
+                      {...register('email')}
+                    />
+                    {errors.email && <span className="text-red-400 text-xs -mt-3">{errors.email.message}</span>}
 
-                  <CustomInputWithIcon
-                    label="Escribe tu numero de celular"
-                    placeholder=""
-                    icon={
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13.535 0.807967C12.779 0.0519668 11.463 0.0519668 10.707 0.807967L0.807999 10.707C0.433301 11.0822 0.222839 11.5907 0.222839 12.121C0.222839 12.6512 0.433301 13.1598 0.807999 13.535L6.465 19.192C6.843 19.57 7.345 19.778 7.879 19.778C8.413 19.778 8.915 19.57 9.293 19.192L19.192 9.29297C19.57 8.91497 19.778 8.41297 19.778 7.87897C19.778 7.34497 19.57 6.84297 19.192 6.46497L13.535 0.807967ZM7.879 17.778L2.222 12.121L12.121 2.22197L17.778 7.87897L7.879 17.778Z" fill="#E9DDB5" />
-                        <path d="M7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z" fill="#E9DDB5" />
-                        <path d="M13.707 19.707L12.293 18.293L18.293 12.293L19.707 13.708L13.707 19.707ZM6.29303 0.292969L7.70703 1.70697L1.70703 7.70697L0.29303 6.29197L6.29303 0.292969Z" fill="#E9DDB5" />
-                      </svg>
+                    <CustomInputWithIcon
+                      label="Escribe tu numero de celular"
+                      placeholder=""
+                      icon={
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M13.535 0.807967C12.779 0.0519668 11.463 0.0519668 10.707 0.807967L0.807999 10.707C0.433301 11.0822 0.222839 11.5907 0.222839 12.121C0.222839 12.6512 0.433301 13.1598 0.807999 13.535L6.465 19.192C6.843 19.57 7.345 19.778 7.879 19.778C8.413 19.778 8.915 19.57 9.293 19.192L19.192 9.29297C19.57 8.91497 19.778 8.41297 19.778 7.87897C19.778 7.34497 19.57 6.84297 19.192 6.46497L13.535 0.807967ZM7.879 17.778L2.222 12.121L12.121 2.22197L17.778 7.87897L7.879 17.778Z" fill="#E9DDB5" />
+                          <path d="M7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z" fill="#E9DDB5" />
+                          <path d="M13.707 19.707L12.293 18.293L18.293 12.293L19.707 13.708L13.707 19.707ZM6.29303 0.292969L7.70703 1.70697L1.70703 7.70697L0.29303 6.29197L6.29303 0.292969Z" fill="#E9DDB5" />
+                        </svg>
 
-                    }
-                    type="tel"
-                    disabled={isSubmitting}
-                    {...register('phone')}
-                  />
-                  {errors.phone && <span className="text-red-400 text-xs -mt-3">{errors.phone.message}</span>}
+                      }
+                      type="tel"
+                      disabled={isSubmitting}
+                      {...register('phone')}
+                    />
+                    {errors.phone && <span className="text-red-400 text-xs -mt-3">{errors.phone.message}</span>}
 
-                  <Controller
-                    name="birthdate"
-                    control={control}
-                    render={({ field }) => (
-                      <CustomDatePicker
-                        label="Escribe tu fecha de nacimiento"
-                        value={field.value}
-                        onChange={field.onChange}
-                        name={field.name}
-                        error={errors.birthdate?.message}
-                        disabled={isSubmitting}
-                      />
-                    )}
-                  />
+                    <Controller
+                      name="birthdate"
+                      control={control}
+                      render={({ field }) => (
+                        <CustomDatePicker
+                          label="Escribe tu fecha de nacimiento"
+                          value={field.value}
+                          onChange={field.onChange}
+                          name={field.name}
+                          error={errors.birthdate?.message}
+                          disabled={isSubmitting}
+                        />
+                      )}
+                    />
 
-                  <p className='w-full text-form-disclaimer-mobile text-mainlight font-normal font-economica -mt-[20px]'>
-                    <span className='text-center md:text-left'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros Términos y Condiciones</span>
-                  </p>
+                    <p className='w-full text-form-disclaimer-mobile text-mainlight font-normal font-economica -mt-[20px]'>
+                      <span className='text-center md:text-left'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros Términos y Condiciones</span>
+                    </p>
 
-                  <Button type="submit" className="primary" disabled={isSubmitting}>
-                    {isSubmitting ? <><span>Enviando</span><DotsLoader /></> : 'REGISTRARSE'}
-                  </Button>
-                </form>
-              )}
+                    <Button type="submit" className="primary" disabled={isSubmitting}>
+                      {isSubmitting ? <><span>Enviando</span><DotsLoader /></> : 'REGISTRARSE'}
+                    </Button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>

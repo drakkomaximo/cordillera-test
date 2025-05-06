@@ -20,8 +20,8 @@ interface CookieStore {
 
 const defaultConsent: CookieConsent = {
   essential: true,
-  analytics: false,
-  marketing: false,
+  analytics: true,
+  marketing: true,
 };
 
 function persistConsent(consent: CookieConsent) {

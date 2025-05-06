@@ -71,8 +71,8 @@ const CookieBanner = () => {
   if (!shouldRender) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
-      <div className={`absolute inset-0 bg-black bg-opacity-80 pointer-events-auto transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
+    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black bg-opacity-80">
+      <div className={`absolute inset-0  pointer-events-auto transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'} max-w-[353px] md:max-w-[838px]`} />
       <div
         className={`
           relative w-full md:max-w-2xl mx-auto bg-[#F7EFE5] border border-black p-4 md:p-6 shadow-lg z-10

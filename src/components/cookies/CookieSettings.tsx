@@ -53,14 +53,14 @@ const CookieSettings = () => {
 
   const cookiesSettingsData = {
     title: 'ADMINISTRAR COOKIES',
-    description: 'En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias. Al bloquear ciertos tipos de cookies, es posible que algunas experiencias en el sitio web y límite los servicios que te podemos prestar.',
+    description: 'En nuestro sitio web Festival Cordillera utilizamos cookies para mejorar tu experiencia en este espacio compartido, realizar análisis y llevar a cabo acciones de marketing. Respetamos tu privacidad, por lo que puedes rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y ajustar tus preferencias. Ten en cuenta que bloquear ciertos tipos de cookies puede afectar tu experiencia y limitar algunos servicios que ofrecemos.',
     cookies: [
       {
         name: 'essential',
         title: 'Cookies esenciales',
         enabled: true,
         enabledDescription: 'Siempre activas',
-        description: 'En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias. Al bloquear ciertos tipos de cookies, es posible que algunas experiencias en el sitio web y límite los servicios que te podemos prestar.',
+        description: 'Estas cookies son fundamentales para el funcionamiento de este sitio web. No se pueden desactivar desde nuestro sistema y generalmente se configuran en respuesta a tus acciones, como ajustar preferencias de privacidad, iniciar sesión o completar formularios.',
       },
       {
         name: 'analytics',
@@ -102,8 +102,7 @@ const CookieSettings = () => {
         <p className="text-black font-economica text-[10px] md:text-[16px] mb-4">
           {cookiesSettingsData.description}
         </p>
-        <div className="border-b border-black mb-4" />
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 mt-8'>
           {cookiesSettingsData.cookies.map((cookie) =>
             <div key={cookie.name} className="bg-[#FDE6D5]">
               <button
