@@ -44,16 +44,16 @@ const CookieSettings = () => {
 
   return (
     <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center">
-      <div className="bg-[#F7EFE5] border border-black w-full max-w-xl p-6 shadow-lg relative z-10">
+      <div className="bg-[#F7EFE5] border border-black w-full max-w-2xl p-6 shadow-lg relative z-10">
         <button
-          className="absolute top-4 right-4 border border-black px-2 py-1 text-black font-bold text-lg leading-none hover:bg-black hover:text-white transition"
+          className="absolute top-7 right-7 md:top-10 md:right-10 border border-black px-1 py-1 text-black font-bold text-[10px] md:text-[28px] leading-none hover:bg-black hover:text-white transition"
           onClick={closeSettings}
           aria-label="Cerrar configuración de cookies"
         >
           X
         </button>
-        <h2 className="font-frente text-[32px] md:text-[36px] font-bold text-black mb-2">ADMINISTRAR COOKIES</h2>
-        <p className="text-black font-economica text-[15px] md:text-[16px] mb-4">
+        <h2 className="font-frente text-p-mobile-mobile md:text-h1-mobile font-normal text-black mb-2">ADMINISTRAR COOKIES</h2>
+        <p className="text-black font-economica text-[10px] md:text-[16px] mb-4">
           En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias. Al bloquear ciertos tipos de cookies, es posible que algunas experiencias en el sitio web y límite los servicios que te podemos prestar.
         </p>
         <div className="border-b border-black mb-4" />
@@ -64,8 +64,13 @@ const CookieSettings = () => {
             onClick={() => toggleAccordion('essential')}
             aria-expanded={openAccordion === 'essential'}
           >
-            <span className="mr-2">{openAccordion === 'essential' ? '↡' : '↠'}</span>
-            <span className="font-economica text-lg font-bold">Cookies esenciales</span>
+            <span className="mr-2">{openAccordion === 'essential' ? <svg className="rotate-90" width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+              : <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>}</span>
+            <span className="font-economica text-sm md:text-lg font-bold">Cookies esenciales</span>
             <span className="ml-auto text-green-700 font-economica font-bold">Siempre activas</span>
           </button>
           <div
@@ -73,7 +78,7 @@ const CookieSettings = () => {
             style={{}}
           >
             <p className="text-xs font-economica text-black px-6 pb-2 pt-1">
-              Estas cookies son necesarias para que el sitio funcione correctamente y no se pueden desactivar.
+            En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias. Al bloquear ciertos tipos de cookies, es posible que esto afecte tu experiencia en el sitio web y limite los servicios que te podemos prestar..
             </p>
           </div>
         </div>
@@ -84,16 +89,24 @@ const CookieSettings = () => {
             onClick={() => toggleAccordion('analytics')}
             aria-expanded={openAccordion === 'analytics'}
           >
-            <span className="mr-2">{openAccordion === 'analytics' ? '↡' : '↠'}</span>
-            <span className="font-economica text-lg font-bold">Cookies analíticas</span>
+            <span className="mr-2">{openAccordion === 'analytics' ? <svg className="rotate-90" width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+              : <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>}</span>
+            <span className="font-economica text-sm md:text-lg font-bold">Cookies analíticas</span>
             <span className="ml-auto">
-              <button
+              <span
+                role="switch"
+                tabIndex={0}
+                aria-checked={localConsent.analytics}
                 className={`w-12 h-6 rounded-full border-2 border-black flex items-center transition ${localConsent.analytics ? 'bg-green-400' : 'bg-gray-300'}`}
                 onClick={e => { e.stopPropagation(); handleSwitch('analytics'); }}
-                aria-pressed={localConsent.analytics}
+                style={{ cursor: 'pointer' }}
               >
                 <span className={`block w-5 h-5 bg-white border border-black rounded-full shadow transform transition ${localConsent.analytics ? 'translate-x-6' : ''}`}></span>
-              </button>
+              </span>
             </span>
           </button>
           <div
@@ -112,16 +125,25 @@ const CookieSettings = () => {
             onClick={() => toggleAccordion('marketing')}
             aria-expanded={openAccordion === 'marketing'}
           >
-            <span className="mr-2">{openAccordion === 'marketing' ? '↡' : '↠'}</span>
-            <span className="font-economica text-lg font-bold">Cookies de marketing</span>
+            <span className="mr-2">{openAccordion === 'marketing' ? <svg className="rotate-90" width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+              : <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.2351 12.9917L20.1865 7.02147M20.1865 7.02147L15.2351 0.999998M20.1865 7.02147L8.04008 7.02147L8.04008 12.9917L0.999802 12.9917" stroke="#1E1E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>}
+            </span>
+            <span className="font-economica text-sm md:text-lg font-bold">Cookies de marketing</span>
             <span className="ml-auto">
-              <button
+              <span
+                role="switch"
+                tabIndex={0}
+                aria-checked={localConsent.marketing}
                 className={`w-12 h-6 rounded-full border-2 border-black flex items-center transition ${localConsent.marketing ? 'bg-green-400' : 'bg-gray-300'}`}
                 onClick={e => { e.stopPropagation(); handleSwitch('marketing'); }}
-                aria-pressed={localConsent.marketing}
+                style={{ cursor: 'pointer' }}
               >
                 <span className={`block w-5 h-5 bg-white border border-black rounded-full shadow transform transition ${localConsent.marketing ? 'translate-x-6' : ''}`}></span>
-              </button>
+              </span>
             </span>
           </button>
           <div
@@ -134,22 +156,22 @@ const CookieSettings = () => {
           </div>
         </div>
         <div className="border-b border-black my-4" />
-        <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between items-center mb-4">
+        <div className="grid grid-cols-2 gap-4 md:justify-between items-center mb-4">
           <button
-            className="w-full md:w-auto border border-black py-2 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
+            className="w-full md:w-auto border border-black py-0 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
             onClick={acceptAll}
           >
             Aceptar todas
           </button>
           <button
-            className="w-full md:w-auto border border-black py-2 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
+            className="w-full md:w-auto border border-black py-0 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
             onClick={rejectAll}
           >
             Rechazar todas
           </button>
         </div>
         <button
-          className="w-full bg-black text-white py-2 px-4 font-economica text-lg rounded hover:bg-gray-800 transition"
+          className="w-full bg-black text-white py-1 px-4 font-economica text-lg rounded hover:bg-gray-800 transition"
           onClick={() => saveConsent(localConsent)}
         >
           Guardar la configuración

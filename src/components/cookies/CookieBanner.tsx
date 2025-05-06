@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCookieStore } from '../../store/cookies';
 
-// Funciones utilitarias para leer la cookie y el consentimiento
 function getInitialConsent() {
   if (typeof window !== 'undefined') {
     const match = document.cookie.match(/cookieConsent=([^;]+)/);
@@ -13,7 +12,7 @@ function getInitialConsent() {
         if (parsed && typeof parsed === 'object' && 'essential' in parsed) {
           return parsed;
         }
-      } catch (e) {}
+      } catch {}
     }
   }
   return { essential: true, analytics: false, marketing: false };
@@ -25,17 +24,14 @@ function hasValidConsentCookie() {
   try {
     const parsed = JSON.parse(decodeURIComponent(match[1]));
     return parsed && typeof parsed === 'object' && 'essential' in parsed;
-  } catch {
-    return false;
-  }
+  } catch {}
+  return false;
 }
 
 const CookieBanner = () => {
   const { showBanner, showSettings, acceptAll, openSettings, closeBanner } = useCookieStore();
-  // Estado local para animación
   const [visible, setVisible] = useState(false);
 
-  // Inicializar el estado del banner y consentimiento en el cliente
   useEffect(() => {
     const show = !hasValidConsentCookie();
     useCookieStore.setState({
@@ -44,13 +40,11 @@ const CookieBanner = () => {
     });
   }, []);
 
-  // Controlar animación de entrada
   useEffect(() => {
     if (showBanner) setVisible(true);
     else setVisible(false);
   }, [showBanner]);
 
-  // Bloquear scroll cuando el banner o settings están visibles (clase y estilo inline)
   useEffect(() => {
     if (showBanner || showSettings) {
       document.body.classList.add('overflow-hidden');
@@ -69,7 +63,6 @@ const CookieBanner = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
-      {/* Overlay negro opaco */}
       <div className="absolute inset-0 bg-black bg-opacity-80 pointer-events-auto transition-opacity duration-500" />
       <div
         className={`
@@ -93,9 +86,9 @@ const CookieBanner = () => {
           En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias.
         </p>
         <hr className="border-black mb-4" />
-        <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between items-center">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-0 md:justify-between items-center">
           <button
-            className="w-full md:w-auto border border-black py-2 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
+            className="w-full md:w-auto border border-black py-0 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
             onClick={acceptAll}
           >
             Aceptar todas

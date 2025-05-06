@@ -24,33 +24,6 @@ const defaultConsent: CookieConsent = {
   marketing: false,
 };
 
-const getInitialConsent = (): CookieConsent => {
-  if (typeof window !== 'undefined') {
-    const match = document.cookie.match(/cookieConsent=([^;]+)/);
-    if (match) {
-      try {
-        const parsed = JSON.parse(decodeURIComponent(match[1]));
-        if (parsed && typeof parsed === 'object' && 'essential' in parsed) {
-          return parsed;
-        }
-      } catch (e) {}
-    }
-  }
-  return defaultConsent;
-};
-
-function hasValidConsentCookie() {
-  if (typeof window === 'undefined') return false;
-  const match = document.cookie.match(/cookieConsent=([^;]+)/);
-  if (!match) return false;
-  try {
-    const parsed = JSON.parse(decodeURIComponent(match[1]));
-    return parsed && typeof parsed === 'object' && 'essential' in parsed;
-  } catch {
-    return false;
-  }
-}
-
 function persistConsent(consent: CookieConsent) {
   let cookie = `cookieConsent=${encodeURIComponent(JSON.stringify(consent))}; path=/; max-age=31536000`;
   if (typeof window !== 'undefined' && window.location.protocol === 'https:') {

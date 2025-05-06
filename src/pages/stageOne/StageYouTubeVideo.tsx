@@ -6,12 +6,20 @@ declare global {
   }
 }
 
+interface YTPlayer {
+  playVideo: () => void;
+  pauseVideo: () => void;
+  seekTo: (seconds: number) => void;
+  destroy: () => void;
+}
+
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 const YOUTUBE_VIDEO_ID = 'KKfVPDH-n1s';
 
 const StageYouTubeVideo = () => {
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<YTPlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isReady, setIsReady] = useState(false);
@@ -56,8 +64,8 @@ const StageYouTubeVideo = () => {
           if (event.data === window.YT.PlayerState.PLAYING) setIsPlaying(true);
           else setIsPlaying(false);
           if (event.data === window.YT.PlayerState.ENDED) {
-            playerRef.current.seekTo(0);
-            playerRef.current.pauseVideo();
+            playerRef.current?.seekTo(0);
+            playerRef.current?.pauseVideo();
           }
         },
       },
@@ -83,17 +91,23 @@ const StageYouTubeVideo = () => {
         style={{ pointerEvents: 'none' }}
       />
       {/* Imagen de llamas con transición */}
-      <img
+      <Image
         src="/home-flame-video-desktop.png"
         alt="llamas"
+        width={537}
+        height={60}
         className={`absolute -bottom-[30px] bg-cover bg-no-repeat left-0 w-[537px] pointer-events-none select-none transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'} md:block hidden`}
         style={{ zIndex: 2 }}
+        priority={false}
       />
-      <img
+      <Image
         src="/home-flame-video-mobile.png"
         alt="llamas"
+        width={375}
+        height={60}
         className={`absolute -bottom-[0px] bg-cover bg-no-repeat left-0 w-[375px] pointer-events-none select-none transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'} block md:hidden`}
         style={{ zIndex: 2 }}
+        priority={false}
       />
       {/* Botón play/pausa personalizado */}
       <button
@@ -103,7 +117,7 @@ const StageYouTubeVideo = () => {
         aria-label={isPlaying ? 'Pausar video' : 'Reproducir video'}
         disabled={!isReady}
       >
-        <img src="/home-video-play.svg" alt="Play" className="w-[32px] h-[31px] md:w-[60px] md:h-[60px]" />
+        <Image src="/home-video-play.svg" alt="Play" width={60} height={60} className="w-[32px] h-[31px] md:w-[60px] md:h-[60px]" />
       </button>
     </div>
   );

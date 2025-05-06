@@ -12,7 +12,7 @@ export const CustomInput = ({
   label: string;
   placeholder?: string;
   type?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }) => (
   <div className="mb-4">
     <label className="block text-mainlight mb-1 form-label-desktop font-bold font-economica">{label}</label>
@@ -37,7 +37,7 @@ export const CustomInputWithIcon = ({
   placeholder?: string;
   type?: string;
   icon: React.ReactNode;
-  [key: string]: any;
+  [key: string]: unknown;
 }) => (
   <div className="mb-4">
     <label className="block text-mainlight mb-1 form-label-desktop font-bold font-economica">{label}</label>
@@ -54,7 +54,7 @@ export const CustomInputWithIcon = ({
 );
 
 // Input de fecha con react-datepicker
-const CustomInputField = forwardRef<HTMLInputElement, any>((props, ref) => (
+const CustomInputField = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>((props, ref) => (
   <input
     {...props}
     ref={ref}
@@ -80,7 +80,7 @@ export const CustomDatePicker = ({
   onChange: (date: Date | null) => void;
   name: string;
   error?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
@@ -113,10 +113,11 @@ export const CustomDatePicker = ({
           className="absolute right-4 top-1/2 -translate-y-1/2 text-mainlight cursor-pointer"
           onClick={() => setOpen(true)}
         >
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <rect x="3" y="4" width="18" height="18" rx="2"/>
-            <path d="M16 2v4M8 2v4M3 10h18"/>
-          </svg>
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 9H6V11H4V9ZM4 13H6V15H4V13ZM8 9H10V11H8V9ZM8 13H10V15H8V13ZM12 9H14V11H12V9ZM12 13H14V15H12V13Z" fill="#E9DDB5"/>
+<path d="M2 20H16C17.103 20 18 19.103 18 18V4C18 2.897 17.103 2 16 2H14V0H12V2H6V0H4V2H2C0.897 2 0 2.897 0 4V18C0 19.103 0.897 20 2 20ZM16 6L16.001 18H2V6H16Z" fill="#E9DDB5"/>
+</svg>
+
         </span>
       </div>
       {error && <span className="text-red-400 text-xs -mt-3">{error}</span>}

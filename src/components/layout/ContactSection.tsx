@@ -7,6 +7,7 @@ import { CustomInput, CustomInputWithIcon, CustomDatePicker } from '../ui/Input'
 import OutlinedTitle from '../ui/OutlinedTitle';
 import React, { useState, useEffect } from 'react';
 import Button from '../ui/Button';
+import { useCookieStore } from '../../store/cookies';
 
 const schema = z.object({
   name: z.string().min(2, 'El nombre es requerido'),
@@ -43,8 +44,12 @@ const ContactSection = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const openCookieSettings = useCookieStore((state) => state.openSettings);
 
   const onSubmit = async (data: FormData) => {
+    setErrorMsg('');
     setIsSubmitting(true);
     try {
       const response = await fetch('/api/gsheet', {
@@ -60,24 +65,22 @@ const ContactSection = () => {
         },
       });
       const result = await response.json();
-      console.log(result); // Para depuración
       if (result.result === 'success' || (result.raw && result.raw.includes('success'))) {
-        alert('¡Registro exitoso!');
+        setIsSuccess(true);
         reset();
+        setTimeout(() => setIsSuccess(false), 4000); // 4 segundos
       } else {
-        alert('Error al registrar. Intenta de nuevo.\n' + (result.error || result.raw || ''));
+        setErrorMsg('Error al registrar. Intenta de nuevo');
       }
-    } catch (err) {
-      alert('Error de conexión. Intenta de nuevo.');
-    } finally {
-      setIsSubmitting(false);
+    } catch {
+      setErrorMsg('Error de conexión. Intenta de nuevo');
     }
+    setIsSubmitting(false);
   };
 
   return (
-    <section className="pt-0 pb-12 md:py-14 md:h-auto">
+    <section className="pt-0 md:pt-14 md:h-auto">
       <div className="bg-contact-gradient pb-14 relative">
-        {/* Fondo compuesto con ambas imágenes, mascota muy grande */}
         <div
           className="absolute inset-0 w-full h-full z-0 hidden md:block"
           style={{
@@ -98,82 +101,119 @@ const ContactSection = () => {
             pointerEvents: 'none',
           }}
         />
-        {/* Contenido principal envuelto para z-index */}
         <div className="relative z-10">
-          <div className="max-w-6xl mx-auto flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-start h-[1061px] md:h-[598px] z-20">
-            {/* Título */}
-            <div className="flex flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
+          <div className={`max-w-6xl mx-auto flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-start h-[1061px] md:h-[598px] z-20 ${!isSuccess ? 'h-[1001px]' : 'h-[458px]'}`}>
+            {
+              !isSuccess && (
+                <div className="flex flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
               <OutlinedTitle>CONTACTO</OutlinedTitle>
               <p className='block md:hidden text-p-mobile text-mainlight font-normal font-economica mt-2 mx-[20px] text-center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
             </div>
-            {/* Formulario */}
-            <div className='flex md:justify-end w-full md:mt-[117px]'>
-              <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent flex flex-col gap-4 mx-[20px] md:mx-[0px] w-[calc(100%-40px)] md:w-[326px] md:pr-[15px]">
-                <CustomInput
-                  label="Escribe tu nombre"
-                  placeholder=""
-                  disabled={isSubmitting}
-                  {...register('name')}
-                />
-                {errors.name && <span className="text-red-400 text-xs -mt-3">{errors.name.message}</span>}
+              )
+            }
+            <div className='flex md:justify-center w-full md:mt-[67px]'>
+              {isSuccess ? (
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <div className="hidden md:flex flex-col items-left gap-0">
+                    <OutlinedTitle style={{ fontSize: '52px' }}>ENVÍO EXITOSO</OutlinedTitle>
+                    <OutlinedTitle style={{ fontSize: '52px' }}>PRONTO NOS</OutlinedTitle>
+                    <OutlinedTitle style={{ fontSize: '52px' }}>PONDREMOS EN</OutlinedTitle>
+                    <OutlinedTitle style={{ fontSize: '52px' }}>CONTACTO CONTIGO</OutlinedTitle>
+                  </div>
+                  <div className="flex md:hidden">
+                    <OutlinedTitle style={{ fontSize: '32px', marginTop: '11rem' }} blueOutline>
+                      ENVÍO EXITOSO PRONTO NOS PONDREMOS EN CONTACTO CONTIGO
+                    </OutlinedTitle>
+                  </div>
+                </div>
+              ) : errorMsg ? (
+                <div className="p-6 bg-red-700/80 rounded text-white text-center font-frente text-xl md:text-2xl whitespace-pre-line">
+                  {errorMsg}
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent flex flex-col gap-4 mx-[20px] md:mx-[0px] w-[calc(100%-40px)] md:w-[426px] md:pr-[15px]">
+                  <CustomInput
+                    label="Escribe tu nombre"
+                    placeholder=""
+                    disabled={isSubmitting}
+                    {...register('name')}
+                  />
+                  {errors.name && <span className="text-red-400 text-xs -mt-3">{errors.name.message}</span>}
 
-                <CustomInputWithIcon
-                  label="Escribe tu correo"
-                  placeholder="correo@gmail.com"
-                  icon={
-                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><path d="m22 5-10 7L2 5" /></svg>
-                  }
-                  type="email"
-                  disabled={isSubmitting}
-                  {...register('email')}
-                />
-                {errors.email && <span className="text-red-400 text-xs -mt-3">{errors.email.message}</span>}
+                  <CustomInputWithIcon
+                    label="Escribe tu correo"
+                    placeholder="correo@gmail.com"
+                    icon={
+                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><path d="m22 5-10 7L2 5" /></svg>
+                    }
+                    type="email"
+                    disabled={isSubmitting}
+                    {...register('email')}
+                  />
+                  {errors.email && <span className="text-red-400 text-xs -mt-3">{errors.email.message}</span>}
 
-                <CustomInputWithIcon
-                  label="Escribe tu numero de celular"
-                  placeholder=""
-                  icon={
-                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2" /><path d="M11 18h2" /></svg>
-                  }
-                  type="tel"
-                  disabled={isSubmitting}
-                  {...register('phone')}
-                />
-                {errors.phone && <span className="text-red-400 text-xs -mt-3">{errors.phone.message}</span>}
+                  <CustomInputWithIcon
+                    label="Escribe tu numero de celular"
+                    placeholder=""
+                    icon={
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.535 0.807967C12.779 0.0519668 11.463 0.0519668 10.707 0.807967L0.807999 10.707C0.433301 11.0822 0.222839 11.5907 0.222839 12.121C0.222839 12.6512 0.433301 13.1598 0.807999 13.535L6.465 19.192C6.843 19.57 7.345 19.778 7.879 19.778C8.413 19.778 8.915 19.57 9.293 19.192L19.192 9.29297C19.57 8.91497 19.778 8.41297 19.778 7.87897C19.778 7.34497 19.57 6.84297 19.192 6.46497L13.535 0.807967ZM7.879 17.778L2.222 12.121L12.121 2.22197L17.778 7.87897L7.879 17.778Z" fill="#E9DDB5"/>
+<path d="M7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z" fill="#E9DDB5"/>
+<path d="M13.707 19.707L12.293 18.293L18.293 12.293L19.707 13.708L13.707 19.707ZM6.29303 0.292969L7.70703 1.70697L1.70703 7.70697L0.29303 6.29197L6.29303 0.292969Z" fill="#E9DDB5"/>
+</svg>
 
-                <Controller
-                  name="birthdate"
-                  control={control}
-                  render={({ field }) => (
-                    <CustomDatePicker
-                      label="Escribe tu fecha de nacimiento"
-                      value={field.value}
-                      onChange={field.onChange}
-                      name={field.name}
-                      error={errors.birthdate?.message}
-                      disabled={isSubmitting}
-                    />
-                  )}
-                />
+                    }
+                    type="tel"
+                    disabled={isSubmitting}
+                    {...register('phone')}
+                  />
+                  {errors.phone && <span className="text-red-400 text-xs -mt-3">{errors.phone.message}</span>}
 
-                <Button type="submit" className="primary" disabled={isSubmitting}>
-                  {isSubmitting ? <><span>Enviando</span><DotsLoader /></> : 'REGISTRARSE'}
-                </Button>
-              </form>
+                  <Controller
+                    name="birthdate"
+                    control={control}
+                    render={({ field }) => (
+                      <CustomDatePicker
+                        label="Escribe tu fecha de nacimiento"
+                        value={field.value}
+                        onChange={field.onChange}
+                        name={field.name}
+                        error={errors.birthdate?.message}
+                        disabled={isSubmitting}
+                      />
+                    )}
+                  />
+
+                  <div className='md:flex hidden gap-4'>
+                    <p className='flex flex-col text-form-disclaimer-mobile text-mainlight font-normal font-economica -mt-[20px]'>
+                      <span>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros Términos y</span>
+                      <span>Condiciones</span>
+                    </p>
+                  </div>
+
+                  <Button type="submit" className="primary" disabled={isSubmitting}>
+                    {isSubmitting ? <><span>Enviando</span><DotsLoader /></> : 'REGISTRARSE'}
+                  </Button>
+                </form>
+              )}
             </div>
-            <div className='grid md:hidden grid-cols-2 gap-4'>
-              <p className='text-form-disclaimer-mobile text-mainlight font-normal font-economica mx-[20px]'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros <a href="#" className='hover:underline'>Términos y Condiciones</a>.</p>
+            {
+              !isSuccess ? (
+                <div className='flex justify-center items-center gap-4'>
+              <p className='text-form-disclaimer-mobile text-mainlight font-normal font-economica mx-[20px] text-center'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros <a href="#" className='hover:underline'>Términos y Condiciones</a>.</p>
             </div>
+              ) : null
+            }
           </div>
         </div>
       </div>
-      {/* Franja blanca inferior */}
       <div className="bg-white py-0 px-4 md:px-0 md:py-4 w-full h-[72px] md:h-[108px]">
         <div className="max-w-6xl mx-auto flex flex-col items-start md:items-center justify-between text-black text-sm gap-2">
           <span className='font-frente text-p-desktop font-normal'>Cordillera Festival 2025 ©</span>
-          <div className="flex gap-10 font-economica text-p-mobile font-normal">
+          <div className="flex gap-10 font-economica text-p-mobile text-[12px] font-normal">
             <a href="#" className="hover:underline">Política de privacidad</a>
             <a href="#" className="hover:underline">Términos y condiciones</a>
+            <a href="#" className="hover:underline" onClick={e => { e.preventDefault(); openCookieSettings(); }}>Política de Cookies</a>
           </div>
         </div>
       </div>

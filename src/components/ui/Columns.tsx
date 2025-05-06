@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 
 type ColumnStep = {
-  image: string; // ruta relativa en public/
+  image: string;
   title: string;
   description: string;
 };
@@ -21,9 +21,11 @@ export default function Columns({ steps }: ColumnsProps) {
         {steps.map((step, idx) => (
           <div key={idx} className="flex flex-col items-center text-center">
             <div className="flex items-end justify-center h-[180px] w-full mb-4">
-              <img
+              <Image
                 src={step.image}
                 alt={step.title}
+                width={180}
+                height={180}
                 className="h-full w-auto object-contain object-bottom block"
                 style={{ maxHeight: '180px' }}
                 loading="lazy"
