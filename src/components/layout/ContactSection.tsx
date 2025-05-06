@@ -94,7 +94,7 @@ const ContactSection = () => {
       <div
           className="absolute inset-0 w-full h-full z-0 hidden md:block max-w-[1440px] mx-auto"
           style={{
-            backgroundImage: `url('/contact-pet-desktop.png'), url('/contact-cloud.png')`,
+            backgroundImage: `url('/contact-pet-desktop.png'), url('/contact-cloud-desktop.png')`,
             backgroundPosition: 'bottom -1px left, top 100px left',
             backgroundRepeat: 'no-repeat, no-repeat',
             backgroundSize: '100% 645px, 55% 250px',
@@ -104,7 +104,7 @@ const ContactSection = () => {
         <div
           className="absolute inset-0 w-full h-full z-0 block md:hidden"
           style={{
-            backgroundImage: `url('/contact-pet-mobile.png'), url('/contact-cloud.png')`,
+            backgroundImage: `url('/contact-pet-mobile.png'), url('/contact-cloud-mobile.png')`,
             backgroundPosition: 'bottom -1px left 0px, top left',
             backgroundRepeat: 'no-repeat, no-repeat',
             backgroundSize: '100% auto, 100% 140px',

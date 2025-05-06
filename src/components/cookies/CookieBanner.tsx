@@ -104,7 +104,7 @@ const CookieBanner = () => {
           En nuestra página utilizamos cookies para mejorar tu experiencia, así como con fines de análisis y marketing. Respetamos tu privacidad, por lo que te damos la opción de rechazar ciertos tipos de cookies. Haz clic en cada categoría para obtener más información y cambiar tus preferencias.
         </p>
         <hr className="border-black mb-4" />
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-0 md:justify-between items-center">
+        <div className="grid grid-cols-2 gap-4 md:gap-0 md:justify-between items-center">
           <button
             className="w-full md:w-auto border border-black py-0 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
             onClick={acceptAll}

@@ -88,14 +88,14 @@ const StageYouTubeVideo = () => {
   };
 
   return (
-    <div className="relative w-full max-w-[375px] h-[220px] md:max-w-[537px] md:h-[392px] border-4 border-mainlight overflow-hidden mt-0">
+    <div className="relative w-full h-[220px] md:h-[392px] border-4 border-mainlight overflow-hidden mt-0">
       <div className={`absolute inset-0 bg-[#15151E] transition-opacity duration-500 ${fadeClass}`} style={{ zIndex: 1 }} />
       <Image
         src="/home-flame-video-desktop.png"
         alt="llamas"
         width={537}
         height={60}
-        className={`absolute -bottom-[30px] bg-cover bg-no-repeat left-0 w-[537px] select-none md:block hidden transition-opacity duration-500 ${fadeClass}`}
+        className={`absolute -bottom-[30px] bg-cover bg-no-repeat left-0 w-full select-none md:block hidden transition-opacity duration-500 ${fadeClass}`}
         style={{ zIndex: 2 }}
         priority={false}
       />
@@ -104,7 +104,7 @@ const StageYouTubeVideo = () => {
         alt="llamas"
         width={375}
         height={60}
-        className={`absolute -bottom-[0px] bg-cover bg-no-repeat left-0 w-[375px] select-none block md:hidden transition-opacity duration-500 ${fadeClass}`}
+        className={`absolute -bottom-[0px] w-full bg-cover bg-no-repeat left-0 select-none block md:hidden transition-opacity duration-500 ${fadeClass}`}
         style={{ zIndex: 2 }}
         priority={false}
       />
