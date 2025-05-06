@@ -40,7 +40,7 @@ const TermAndConditions = () => {
     <div className="bg-white py-0 px-4 md:px-0 md:py-4 w-full h-[72px] md:h-[108px]">
         <div className="flex flex-col items-start md:items-center justify-between text-black text-sm gap-2 max-w-[1440px] mx-auto">
           <span className='font-frente text-p-desktop font-normal'>{tycDataa.title}</span>
-          <div className="flex gap-12 md:gap-10 font-economica md:text-p-mobile text-[12px] font-normal">
+          <div className="flex gap-12 md:gap-10 font-economica md:text-p-mobile text-[9.5px] font-normal">
             {tycDataa.links.map((link) => (
               link.action ? (
                 <span key={link.id} className="hover:underline cursor-pointer" onClick={link.action}>{link.label}</span>
