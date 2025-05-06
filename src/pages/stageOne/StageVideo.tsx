@@ -30,7 +30,7 @@ const StageVideo = () => {
   };
 
   return (
-    <div className="relative w-[375px] h-[220px] md:w-[537px] md:h-[392px] border-4 border-mainlight overflow-hidden bg-black mt-[66px] md:mt-[0px]">
+    <div className="relative w-[375px] h-[220px] md:max-w-[537px] md:h-[392px] border-4 border-mainlight overflow-hidden bg-black mt-0">
       <video
         ref={videoRef}
         className="w-full h-full object-cover"

@@ -81,70 +81,79 @@ const CookieSettings = () => {
 
   return (
     <div className={`fixed inset-0 bg-black/80 z-50 flex items-center justify-center transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-      <div className={`bg-[#F7EFE5] border border-black w-full max-w-2xl p-6 shadow-lg relative z-10 transition-all duration-300 transform ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+      <div className={`bg-[#F7EFE5] border border-black w-full max-w-[353px] md:max-w-[838px] p-6 shadow-lg relative z-10 transition-all duration-300 transform ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
         <button
-          className="absolute top-7 right-7 md:top-10 md:right-10 border border-black px-1 py-1 text-black font-bold text-[10px] md:text-[28px] leading-none hover:bg-black hover:text-white transition"
+          className="absolute top-8 right-7 md:top-10 md:right-10 border border-black px-1 py-1 text-black font-bold leading-none hover:bg-black hover:text-white transition"
           onClick={() => { closeSettings(); closeBanner(); }}
           aria-label="Cerrar configuración de cookies"
         >
-          X
+          <Image
+            src="/cookie-close-icon.svg"
+            alt="Toggle"
+            width={7}
+            height={12}
+            className='w-[7px] h-[12px] md:w-[14px] md:h-[24px]'
+          />
         </button>
-        <h2 className="font-frente text-p-mobile-mobile md:text-h1-mobile font-normal text-black mb-2">{cookiesSettingsData.title}</h2>
+        <h2 className="font-frente text-p-desktop md:text-h1-mobile font-normal text-black mb-2">{cookiesSettingsData.title}</h2>
         <p className="text-black font-economica text-[10px] md:text-[16px] mb-4">
           {cookiesSettingsData.description}
         </p>
         <div className="border-b border-black mb-4" />
-        {cookiesSettingsData.cookies.map((cookie) =>
-          <div key={cookie.name} className="border-b border-black">
-            <button
-              className="flex items-center w-full py-2 focus:outline-none"
-              onClick={() => toggleAccordion(cookie.name)}
-              aria-expanded={openAccordion === cookie.name}
-            >
-              <span className="mr-2">
-                <Image
-                  src="/cookie-arrow.svg"
-                  alt="Toggle"
-                  width={22}
-                  height={14}
-                  className={`transition-transform duration-300 ease-in-out ${openAccordion === cookie.name ? 'rotate-90' : ''}`}
-                />
-              </span>
-              <span className="font-economica text-sm md:text-lg font-bold">{cookie.title}</span>
-              {cookie.enabledDescription ? (
-                <span className="ml-auto text-green-700 font-economica font-bold">Siempre activas</span>
-              ) : (
-                <span className="ml-auto">
-                  <span
-                    role="switch"
-                    tabIndex={0}
-                    aria-checked={localConsent[cookie.name as keyof CookieConsent]}
-                    className={`w-[72px] h-[24px] rounded-full border-2 border-black flex items-center transition-all duration-300 ease-in-out relative cursor-pointer select-none bg-[#191916] ${localConsent[cookie.name as keyof CookieConsent] ? '' : 'bg-[#686868]'}`}
-                    onClick={e => { e.stopPropagation(); handleSwitch(cookie.name as keyof CookieConsent); }}
-                  >
+        <div className='flex flex-col gap-2'>
+          {cookiesSettingsData.cookies.map((cookie) =>
+            <div key={cookie.name} className="bg-[#FDE6D5]">
+              <button
+                className="flex items-center w-full p-2 focus:outline-none"
+                onClick={() => toggleAccordion(cookie.name)}
+                aria-expanded={openAccordion === cookie.name}
+              >
+                <span className="mr-2">
+                  <Image
+                    src="/cookie-arrow.svg"
+                    alt="Toggle"
+                    width={22}
+                    height={14}
+                    className={`transition-transform duration-300 ease-in-out ${openAccordion === cookie.name ? 'rotate-90' : ''}`}
+                  />
+                </span>
+                <span className="font-economica text-sm md:text-lg font-bold">{cookie.title}</span>
+                {cookie.enabledDescription ? (
+                  <span className="ml-auto text-xs text-green-700 font-economica font-bold">Siempre activas</span>
+                ) : (
+                  <span className="ml-auto">
                     <span
-                      className={`absolute top-0 left-0 w-5 h-5 rounded-full bg-[#FDEFE2] border border-black shadow-[0_2px_6px_rgba(0,0,0,0.12)] flex items-center justify-center transition-all duration-300 ease-in-out ${localConsent[cookie.name as keyof CookieConsent] ? 'translate-x-[48px]' : ''}`}
-                      style={{ boxSizing: 'border-box' }}
+                      role="switch"
+                      tabIndex={0}
+                      aria-checked={localConsent[cookie.name as keyof CookieConsent]}
+                      className={`w-[72px] h-[24px] rounded-full border-2 border-black flex items-center transition-all duration-300 ease-in-out relative cursor-pointer select-none bg-[#191916] ${localConsent[cookie.name as keyof CookieConsent] ? '' : 'bg-[#686868]'}`}
+                      onClick={e => { e.stopPropagation(); handleSwitch(cookie.name as keyof CookieConsent); }}
                     >
-                      {localConsent[cookie.name as keyof CookieConsent] && (
-                        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M5 9.5L8 12.5L13 7.5" stroke="#191916" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      )}
+                      <span
+                        className={`absolute top-0 left-0 w-5 h-5 rounded-full bg-[#FDEFE2] border border-black shadow-[0_2px_6px_rgba(0,0,0,0.12)] flex items-center justify-center transition-all duration-300 ease-in-out ${localConsent[cookie.name as keyof CookieConsent] ? 'translate-x-[48px]' : ''}`}
+                        style={{ boxSizing: 'border-box' }}
+                      >
+                        {localConsent[cookie.name as keyof CookieConsent] && (
+                          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 9.5L8 12.5L13 7.5" stroke="#191916" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                      </span>
                     </span>
                   </span>
-                </span>
-              )}
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-500 ease-in-out ${openAccordion === cookie.name ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
-            >
-              <p className="text-xs font-economica text-black px-6 pb-2 pt-1">
-                {cookie.description}
-              </p>
+                )}
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${openAccordion === cookie.name ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
+              >
+                <p className="text-xs font-economica text-black px-6 pb-2 pt-1">
+                  {cookie.description}
+                </p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
 
         <div className="border-b border-black my-4" />
         <div className="grid grid-cols-2 gap-4 md:justify-between items-center mb-4">

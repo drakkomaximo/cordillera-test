@@ -7,7 +7,6 @@ import { CustomInput, CustomInputWithIcon, CustomDatePicker } from '../ui/Input'
 import OutlinedTitle from '../ui/OutlinedTitle';
 import React, { useState, useEffect } from 'react';
 import Button from '../ui/Button';
-import { useCookieStore } from '../../store/cookies';
 
 const schema = z.object({
   name: z.string().min(2, 'El nombre es requerido'),
@@ -44,9 +43,8 @@ const ContactSection = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
-  const openCookieSettings = useCookieStore((state) => state.openSettings);
 
   const onSubmit = async (data: FormData) => {
     setErrorMsg('');
@@ -79,15 +77,14 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="bg-contact-gradient pt-0 md:pt-14 md:h-auto">
-      <div className="pb-14 relative max-w-[1440px] mx-auto">
-        <div
-          className="absolute inset-0 w-full h-full z-0 hidden md:block"
+    <section className="relative bg-contact-gradient pt-0 md:h-auto md:px-[40px] xl:px-[100px]">
+      <div
+          className="absolute inset-0 w-full h-full z-0 hidden md:block max-w-[1440px] mx-auto"
           style={{
             backgroundImage: `url('/contact-pet-desktop.png')`,
             backgroundPosition: 'bottom -1px left, top left',
             backgroundRepeat: 'no-repeat',
-            backgroundSize: '100% auto',
+            backgroundSize: '100% 645px',
             pointerEvents: 'none',
           }}
         />
@@ -101,30 +98,30 @@ const ContactSection = () => {
             pointerEvents: 'none',
           }}
         />
+      <div className="relative max-w-[1440px] mx-auto h-auto md:h-[726px] ">
         <div className="relative z-10">
-          <div className={`max-w-6xl mx-auto flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-start h-[1061px] md:h-[598px] z-20 ${!isSuccess ? 'h-[1001px]' : 'h-[458px]'}`}>
-            
-          <div className="hidden md:flex flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
-                  <OutlinedTitle>CONTACTO</OutlinedTitle>
-                </div>
+          <div className={`flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-start md:h-[598px] z-20 ${!isSuccess ? 'h-[1201px] sm:h-[1261px]' : 'h-[558px] sm:h-[698px]'}`}>
+            <div className="hidden md:flex flex-col justify-center mt-[144px] md:mt-[0px] md:pt-[53px]">
+              <OutlinedTitle>CONTACTO</OutlinedTitle>
+            </div>
             {
               !isSuccess && (
-                <div className="flex md:hidden flex-col justify-center mt-[144px] md:mt-[0px] md:pl-[30px] md:pt-[53px]">
+                <div className="flex md:hidden flex-col justify-center mt-[144px] md:mt-[0px] md md:pt-[53px] w-full">
                   <OutlinedTitle>CONTACTO</OutlinedTitle>
                   <p className='block md:hidden text-p-mobile text-mainlight font-normal font-economica mt-2 mx-[20px] text-center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
                 </div>
               )
             }
-            <div className='flex md:justify-center w-full md:mt-[67px]'>
+            <div className='flex justify-center md:justify-end w-full md:mt-[67px]'>
               {isSuccess ? (
-                <div className="flex flex-col items-center justify-center gap-2">
+                <div className="flex flex-col items-center justify-start gap-2 md:max-w-[426px]">
                   <div className="hidden md:flex flex-col items-left gap-0">
                     <OutlinedTitle style={{ fontSize: '52px' }}>ENVÍO EXITOSO</OutlinedTitle>
                     <OutlinedTitle style={{ fontSize: '52px' }}>PRONTO NOS</OutlinedTitle>
                     <OutlinedTitle style={{ fontSize: '52px' }}>PONDREMOS EN</OutlinedTitle>
                     <OutlinedTitle style={{ fontSize: '52px' }}>CONTACTO CONTIGO</OutlinedTitle>
                   </div>
-                  <div className="flex md:hidden">
+                  <div className="flex md:hidden sm:w-[60%]">
                     <OutlinedTitle style={{ fontSize: '32px', marginTop: '11rem' }} blueOutline>
                       ENVÍO EXITOSO PRONTO NOS PONDREMOS EN CONTACTO CONTIGO
                     </OutlinedTitle>
@@ -135,7 +132,7 @@ const ContactSection = () => {
                   {errorMsg}
                 </div>
               ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent flex flex-col gap-4 mx-[20px] md:mx-[0px] w-[calc(100%-40px)] md:w-[426px] md:pr-[15px]">
+                <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent flex flex-col gap-4 mx-4 md:mx-[0px] sm:max-w-[426px]">
                   <CustomInput
                     label="Escribe tu nombre"
                     placeholder=""
@@ -188,9 +185,8 @@ const ContactSection = () => {
                     )}
                   />
 
-                  <p className='w-full flex flex-col justify-center text-form-disclaimer-mobile text-mainlight font-normal font-economica -mt-[20px]'>
-                    <span className='text-center md:text-left'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros Términos y</span>
-                    <span className='text-center md:text-left'>Condiciones</span>
+                  <p className='w-full text-form-disclaimer-mobile text-mainlight font-normal font-economica -mt-[20px]'>
+                    <span className='text-center md:text-left'>Al hacer clic en Registrarte, confirmas que estás de acuerdo con nuestros Términos y Condiciones</span>
                   </p>
 
                   <Button type="submit" className="primary" disabled={isSubmitting}>
@@ -199,16 +195,6 @@ const ContactSection = () => {
                 </form>
               )}
             </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white py-0 px-4 md:px-0 md:py-4 w-full h-[72px] md:h-[108px]">
-        <div className="flex flex-col items-start md:items-center justify-between text-black text-sm gap-2 max-w-[1440px] mx-auto">
-          <span className='font-frente text-p-desktop font-normal'>Cordillera Festival 2025 ©</span>
-          <div className="flex gap-12 md:gap-10 font-economica md:text-p-mobile text-[12px] font-normal">
-            <a href="#" className="hover:underline">Política de privacidad</a>
-            <a href="#" className="hover:underline">Términos y condiciones</a>
-            <a href="#" className="hover:underline" onClick={e => { e.preventDefault(); openCookieSettings(); }}>Política de Cookies</a>
           </div>
         </div>
       </div>
