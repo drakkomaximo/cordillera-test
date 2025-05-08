@@ -5,6 +5,7 @@ import Script from "next/script";
 import CookieBanner from "../components/cookies/CookieBanner";
 import CookieSettings from "../components/cookies/CookieSettings";
 import TermAndConditions from "@/components/layout/TermAndConditions";
+import Logos from "@/components/layout/Logos";
 
 export const metadata: Metadata = {
   title: "Festival Cordillera 2025",
@@ -39,6 +40,7 @@ export default function RootLayout({
         {/* End Google Tag Manager (noscript) */}
         {children}
         <ContactSection />
+        <Logos />
         <TermAndConditions />
         <CookieBanner />
         <CookieSettings />
