@@ -8,8 +8,8 @@ import TermAndConditions from "@/components/layout/TermAndConditions";
 import Logos from "@/components/layout/Logos";
 
 export const metadata: Metadata = {
-  title: "Festival Cordillera 2025",
-  description: "Festival Cordillera 2025",
+  title: "Festival Cordillera 2025: 13 y 14 de Septiembre",
+  description: "Bogotá recibe el Festival Cordillera 2025 el 13 y 14 de septiembre. Disfruta artistas únicos, diversidad cultural y conexión con la tierra.",
   icons: {
     icon: "/favicon.png",
   },
