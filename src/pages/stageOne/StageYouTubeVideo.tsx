@@ -22,7 +22,7 @@ import Image from 'next/image';
 
 const YOUTUBE_VIDEO_ID = 'KKfVPDH-n1s';
 
-const StageYouTubeVideo = () => {
+const StageYouTubeVideo = ({ layoutOnly = false }: { layoutOnly?: boolean }) => {
   const playerRef = useRef<InstanceType<typeof window.YT.Player> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [showPlayer, setShowPlayer] = useState(false);
@@ -30,6 +30,7 @@ const StageYouTubeVideo = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
+    if (layoutOnly) return; // No cargar el player si solo es layout
     if (!showPlayer) return;
     if (window.YT && window.YT.Player) {
       createPlayer();
@@ -44,7 +45,7 @@ const StageYouTubeVideo = () => {
         playerRef.current.destroy();
       }
     };
-  }, [showPlayer]);
+  }, [showPlayer, layoutOnly]);
 
   const createPlayer = () => {
     if (!containerRef.current) return;
@@ -80,6 +81,7 @@ const StageYouTubeVideo = () => {
   const fadeClass = isPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto';
 
   const handleGlobalClick = () => {
+    if (layoutOnly) return;
     if (showPlayer && playerRef.current) {
       playerRef.current.playVideo();
     } else {
@@ -108,7 +110,7 @@ const StageYouTubeVideo = () => {
         style={{ zIndex: 2 }}
         priority={false}
       />
-      {!isPlaying && (
+      {!layoutOnly && !isPlaying && (
         <div
           className={`absolute inset-0 z-20 ${fadeClass}`}
           onClick={handleGlobalClick}
@@ -117,16 +119,18 @@ const StageYouTubeVideo = () => {
           style={{ cursor: 'pointer' }}
         />
       )}
-      <button
-        tabIndex={-1}
-        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-[60px] h-[60px] flex items-center justify-center z-30 transition-all duration-500 ${fadeClass} ${isHovered ? 'scale-110' : 'scale-100'}`}
-        aria-label="Reproducir video"
-        type="button"
-        style={{ pointerEvents: 'none' }}
-      >
-        <Image src="/home-video-play.svg" alt="Play" width={60} height={60} className="w-[32px] h-[31px] md:w-[60px] md:h-[60px]" />
-      </button>
-      {showPlayer && (
+      {!layoutOnly && (
+        <button
+          tabIndex={-1}
+          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full w-[60px] h-[60px] flex items-center justify-center z-30 transition-all duration-500 ${fadeClass} ${isHovered ? 'scale-110' : 'scale-100'}`}
+          aria-label="Reproducir video"
+          type="button"
+          style={{ pointerEvents: 'none' }}
+        >
+          <Image src="/home-video-play.svg" alt="Play" width={60} height={60} className="w-[32px] h-[31px] md:w-[60px] md:h-[60px]" />
+        </button>
+      )}
+      {!layoutOnly && showPlayer && (
         <div
           ref={containerRef}
           className="w-full h-full"
