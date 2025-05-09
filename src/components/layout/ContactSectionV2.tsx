@@ -92,11 +92,11 @@ const ContactSectionV2 = () => {
 
   return (
     <section className="flex justify-center items-center min-h-screen bg-maindark">
-      <div className="w-full min-h-screen rounded-lg overflow-hidden shadow-lg max-w-[1440px] mx-auto">
+      <div className="w-full min-h-screen md:rounded-lg overflow-hidden shadow-lg max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
-          <div className="bg-contact-gradient border-[6px] border-black flex flex-col justify-start items-start p-0 md:p-8 relative overflow-hidden h-full pb-[300px] sm:pb-[500px] ">
-            <div className="mx-4 xl:mx-16 relative z-10">
-              <OutlinedTitle className="md:!text-[64px] !text-[52px] !text-left w-full">
+          <div className="bg-contact-gradient md:border-[6px] md:border-black flex flex-col justify-start items-start p-0 md:p-8 relative overflow-hidden h-full pb-[350px] sm:pb-[500px] ">
+            <div className="mx-6 xl:mx-16 relative z-10">
+              <OutlinedTitle className="md:!text-[64px] !text-[52px] !text-left w-full mt-[35px] md:mt-[0px]">
                 REGÍSTRATE PARA HACER PARTE DE LOS PROFETAS
               </OutlinedTitle>
               <p className="text-p-mobile md:text-[20px] text-mainlight mt-4 md:mt-8 font-frente leading-[100%] w-full text-left">
@@ -120,7 +120,7 @@ const ContactSectionV2 = () => {
               priority={false}
             />
           </div>
-          <div className="bg-[#191916] flex items-stretch justify-center p-6 md:p-8 h-full">
+          <div className="bg-[#191916] flex items-stretch justify-center px-6 py-14 md:p-8 h-full">
             <div className='flex justify-center items-start md:justify-center w-full md:mt-[px] '>
               <AnimatePresence mode='wait'>
                 {isSuccess ? (
