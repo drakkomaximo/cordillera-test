@@ -43,7 +43,7 @@ module.exports = {
         tangerine: '#F77701', // Tangerine
         sunshine: '#0ED1D6',  // Sunshine
         success: '#00B389',   // Success
-        error: '#E03A3A',     // Error
+        error: '#FF5555',     // Error
         warning: '#FDB400',   // Warning
         info: '#00A9E0',      // Info
       },

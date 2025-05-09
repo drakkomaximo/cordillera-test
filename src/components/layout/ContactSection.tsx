@@ -3,7 +3,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CustomInput, CustomInputWithIcon, CustomDatePicker } from "../ui/Input";
+import { CustomInput, CustomInputWithIcon, CustomDatePicker, CustomCheckbox } from "../ui/Input";
 import OutlinedTitle from "../ui/OutlinedTitle";
 import React, { useState, useEffect } from "react";
 import Button from "../ui/Button";
@@ -113,7 +113,7 @@ const ContactSection = () => {
       />
       <div className='relative max-w-[1440px] mx-auto h-auto md:h-[726px] '>
         <div className='relative z-10'>
-          <div className={`flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-start`}>
+          <div className={`flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-6 items-stretch`}>
             <div className='hidden md:flex flex-col justify-center mt-[144px] md:mt-[0px] md:pt-[53px]'>
               <OutlinedTitle>Registrate para hacer parte de los profetas</OutlinedTitle>
               <p className='text-p-mobile md:text-[36px] text-mainlight  mt-[20px] md:mt-[44px] border_text font-frente leading-[100%]'>
@@ -137,7 +137,7 @@ const ContactSection = () => {
                 </motion.div>
               ) : null}
             </AnimatePresence>
-            <div className='flex justify-center md:justify-end w-full md:mt-[67px]'>
+            <div className='flex justify-center items-end md:justify-end w-full md:mt-[67px]'>
               <AnimatePresence mode='wait'>
                 {isSuccess ? (
                   <motion.div
@@ -146,17 +146,14 @@ const ContactSection = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className='flex flex-col items-center justify-start gap-2 md:max-w-[426px]'
+                    className='flex flex-col items-center justify-start gap-2 '
                   >
                     <div className='hidden md:flex flex-col items-left gap-0'>
-                      <OutlinedTitle style={{ fontSize: "52px" }}>ENVÍO EXITOSO</OutlinedTitle>
-                      <OutlinedTitle style={{ fontSize: "52px" }}>PRONTO NOS</OutlinedTitle>
-                      <OutlinedTitle style={{ fontSize: "52px" }}>PONDREMOS EN</OutlinedTitle>
-                      <OutlinedTitle style={{ fontSize: "52px" }}>CONTACTO CONTIGO</OutlinedTitle>
+                      <OutlinedTitle style={{ fontSize: "82px", paddingBottom: "200px" }}>ENVÍO EXITOSO</OutlinedTitle>
                     </div>
-                    <div className='flex md:hidden px-4 sm:px-0 sm:w-[60%]'>
-                      <OutlinedTitle style={{ fontSize: "32px", marginTop: "11rem" }} blueOutline>
-                        ENVÍO EXITOSO PRONTO NOS PONDREMOS EN CONTACTO CONTIGO
+                    <div className='flex md:hidden px-4 sm:px-0'>
+                      <OutlinedTitle style={{ fontSize: "52px", marginTop: "11rem" }} blueOutline>
+                        ENVÍO EXITOSO
                       </OutlinedTitle>
                     </div>
                   </motion.div>
@@ -181,11 +178,21 @@ const ContactSection = () => {
                     onSubmit={handleSubmit(onSubmit)}
                     className='bg-transparent flex flex-col gap-2 mx-4 md:mx-[0px] w-full md:max-w-[426px]'
                   >
-                    <CustomInput label='Escribe tu nombre' placeholder='' disabled={isSubmitting} {...register("name")} />
-                    {errors.name && <span className='text-red-400 text-xs -mt-3'>{errors.name.message}</span>}
+                    <CustomInput 
+                      label='Escribe tu nombre' 
+                      placeholder='' 
+                      disabled={isSubmitting} 
+                      error={errors.name?.message}
+                      {...register("name")} 
+                    />
 
-                    <CustomInput label='Escribe tu apellido' placeholder='' disabled={isSubmitting} {...register("surname")} />
-                    {errors.surname && <span className='text-red-400 text-xs -mt-3'>{errors.surname.message}</span>}
+                    <CustomInput 
+                      label='Escribe tu apellido' 
+                      placeholder='' 
+                      disabled={isSubmitting} 
+                      error={errors.surname?.message}
+                      {...register("surname")} 
+                    />
 
                     <CustomInputWithIcon
                       label='Escribe tu correo'
@@ -198,9 +205,9 @@ const ContactSection = () => {
                       }
                       type='email'
                       disabled={isSubmitting}
+                      error={errors.email?.message}
                       {...register("email")}
                     />
-                    {errors.email && <span className='text-red-400 text-xs -mt-3'>{errors.email.message}</span>}
 
                     <CustomInputWithIcon
                       label='Escribe tu numero de celular'
@@ -209,20 +216,20 @@ const ContactSection = () => {
                         <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
                           <path
                             d='M13.535 0.807967C12.779 0.0519668 11.463 0.0519668 10.707 0.807967L0.807999 10.707C0.433301 11.0822 0.222839 11.5907 0.222839 12.121C0.222839 12.6512 0.433301 13.1598 0.807999 13.535L6.465 19.192C6.843 19.57 7.345 19.778 7.879 19.778C8.413 19.778 8.915 19.57 9.293 19.192L19.192 9.29297C19.57 8.91497 19.778 8.41297 19.778 7.87897C19.778 7.34497 19.57 6.84297 19.192 6.46497L13.535 0.807967ZM7.879 17.778L2.222 12.121L12.121 2.22197L17.778 7.87897L7.879 17.778Z'
-                            fill='#E9DDB5'
+                            fill='currentColor'
                           />
-                          <path d='M7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z' fill='#E9DDB5' />
+                          <path d='M7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z' fill='currentColor' />
                           <path
                             d='M13.707 19.707L12.293 18.293L18.293 12.293L19.707 13.708L13.707 19.707ZM6.29303 0.292969L7.70703 1.70697L1.70703 7.70697L0.29303 6.29197L6.29303 0.292969Z'
-                            fill='#E9DDB5'
+                            fill='currentColor'
                           />
                         </svg>
                       }
                       type='tel'
                       disabled={isSubmitting}
+                      error={errors.phone?.message}
                       {...register("phone")}
                     />
-                    {errors.phone && <span className='text-red-400 text-xs -mt-3'>{errors.phone.message}</span>}
 
                     <Controller
                       name='birthdate'
@@ -239,35 +246,15 @@ const ContactSection = () => {
                       )}
                     />
 
-                    <div className='flex items-center gap-2 mb-2'>
-                      <label htmlFor='terms' className='flex items-center gap-2 cursor-pointer select-none'>
-                        <input
-                          id='terms'
-                          type='checkbox'
-                          {...register("terms")}
-                          checked={termsChecked}
-                          onChange={(e) => setValue("terms", e.target.checked, { shouldValidate: true })}
-                          disabled={isSubmitting}
-                          className='absolute opacity-0 w-0 h-0'
-                        />
-                        <span
-                          className={`w-4 h-4 flex items-center justify-center border border-mainlight rounded transition-colors duration-200 ${
-                            termsChecked ? "bg-mainlight" : "bg-transparent"
-                          }`}
-                          style={{ minWidth: "1rem", minHeight: "1rem" }}
-                        >
-                          {termsChecked && (
-                            <svg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                              <path d='M3 6.5L5.5 9L9 4.5' stroke='#191916' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-                            </svg>
-                          )}
-                        </span>
-                        <a href='https://paramopresenta.com/politicas.pdf' target='blank' className='text-form-disclaimer-mobile text-mainlight font-normal font-economica'>
-                          Autorizo el uso de mi información conforme a al aviso de privacidad - la palabra privacidad debe tener este documento anclado
-                        </a>
-                      </label>
-                    </div>
-                    {errors.terms && <span className='text-red-400 text-xs -mt-3'>{errors.terms.message}</span>}
+                    <CustomCheckbox
+                      label="Autorizo el uso de mi información conforme a al aviso de "
+                      checked={termsChecked}
+                      onChange={(checked) => setValue("terms", checked, { shouldValidate: true })}
+                      disabled={isSubmitting}
+                      error={errors.terms?.message}
+                      link="https://paramopresenta.com/politicas.pdf"
+                      linkText="privacidad"
+                    />
 
                     <Button type='submit' className='primary mt-8' disabled={isSubmitting}>
                       {isSubmitting ? (
