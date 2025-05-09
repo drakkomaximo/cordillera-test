@@ -174,7 +174,7 @@ export const CustomCheckbox = ({
           </svg>
         )}
       </span>
-      <span className="text-form-disclaimer-mobile text-mainlight font-normal font-economica">
+      <span className="text-form-disclaimer-mobile text-mainlight font-bold font-economica">
         {label}
         {link && linkText && (
           <a href={link} target='blank' className="text-mainlight hover:text-accentcyan transition-colors">
