@@ -240,7 +240,7 @@ const ContactSectionV2 = () => {
                       linkText="privacidad"
                     />
 
-                    <Button type='submit' className='primary mt-8' disabled={isSubmitting}>
+                    <Button type='submit' className='primary mt-8 font-normal' disabled={isSubmitting}>
                       {isSubmitting ? (
                         <>
                           <span>Enviando</span>
