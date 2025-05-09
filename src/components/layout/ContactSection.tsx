@@ -113,10 +113,10 @@ const ContactSection = () => {
       />
       <div className='relative max-w-[1440px] mx-auto h-auto md:h-[726px] '>
         <div className='relative z-10'>
-          <div className={`flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-6 items-stretch`}>
-            <div className='hidden md:flex flex-col justify-center mt-[144px] md:mt-[0px] md:pt-[53px]'>
-              <OutlinedTitle>Registrate para hacer parte de los profetas</OutlinedTitle>
-              <p className='text-p-mobile md:text-[36px] text-mainlight  mt-[20px] md:mt-[44px] border_text font-frente leading-[100%]'>
+          <div className={`flex flex-col md:grid md:grid-cols-2 gap-4 mx-6 md:mx-[0px] md:gap-6 items-stretch`}>
+            <div className='hidden md:flex flex-col justify-start mt-[144px] md:mt-[0px] md:pt-[53px]'>
+              <OutlinedTitle className="md:text-[68px] lg:text-[82px]">Registrate para hacer parte de los profetas</OutlinedTitle>
+              <p className='text-p-mobile md:text-[36px] text-mainlight mt-[20px] md:mt-[44px] border_text font-frente leading-[100%]'>
                 Sé parte de la Comunidad Sudamerican Rockers, sé el primero en enterarte de todas las noticias que el Festival Cordillera trae para ti
               </p>
             </div>
@@ -130,8 +130,8 @@ const ContactSection = () => {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className='flex md:hidden flex-col justify-center mt-[144px] md:mt-[0px] md md:pt-[53px] w-full'
                 >
-                  <OutlinedTitle>Registrate para hacer parte de los profetas</OutlinedTitle>
-                  <p className='block text-[20px] text-mainlight font-normal  mt-2 mx-[20px] text-start font-frente leading-[100%]'>
+                  <OutlinedTitle style={{ textAlign: 'left', fontSize: '49px' }}>Registrate para hacer parte de los profetas</OutlinedTitle>
+                  <p className='block text-[20px] text-mainlight font-normal  mt-2 text-start font-frente leading-[100%]'>
                     Sé parte de la Comunidad Sudamerican Rockers, sé el primero en enterarte de todas las noticias que el Festival Cordillera trae para ti
                   </p>
                 </motion.div>
@@ -176,7 +176,7 @@ const ContactSection = () => {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     onSubmit={handleSubmit(onSubmit)}
-                    className='bg-transparent flex flex-col gap-2 mx-4 md:mx-[0px] w-full md:max-w-[426px]'
+                    className='bg-transparent flex flex-col gap-2 md:mx-[0px] w-full md:max-w-[426px]'
                   >
                     <CustomInput 
                       label='Escribe tu nombre' 
