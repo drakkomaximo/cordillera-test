@@ -42,7 +42,7 @@ export default function InfiniteCollageSlider({ images }: InfiniteCollageSliderP
       { transform: 'translateX(0)' },
       { transform: `translateX(-${firstSlide.clientWidth * 2}px)` }
     ], {
-      duration: 20000, 
+      duration: 30000, 
       iterations: Infinity,
       easing: 'linear'
     });
@@ -54,10 +54,10 @@ export default function InfiniteCollageSlider({ images }: InfiniteCollageSliderP
 
   return (
     <div className="w-full py-[100px] md:py-[120px] overflow-hidden max-w-[1440px] mx-auto">
-      <div className="h-screen">
+      <div className="h-screen w-full">
         <div 
           ref={containerRef}
-          className="flex gap-4 h-full w-full"
+          className="flex gap-4 h-full w-[300%] sm:w-[200%] lg:w-full xl:w-screen"
           style={{ willChange: 'transform' }}
         >
           {collages.map((group, idx) => {
@@ -68,7 +68,7 @@ export default function InfiniteCollageSlider({ images }: InfiniteCollageSliderP
                 key={idx}
                 className="flex flex-row gap-4 bg-transparent h-full w-full flex-shrink-0"
               >
-                <div className="flex flex-col gap-4 w-1/2 h-full min-w-[100px] md:min-w-[160px]">
+                <div className="flex flex-col gap-4 w-1/2 h-full md:min-w-[160px]">
                   {filledGroup.slice(0, 2).map((img, i) => {
                     if (!img) return <div key={`ph-v-${i}`} className="w-full h-1/2">{PLACEHOLDER}</div>;
                     let src = '';

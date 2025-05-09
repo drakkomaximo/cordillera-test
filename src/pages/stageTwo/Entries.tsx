@@ -9,6 +9,7 @@ const vipPricing: PricingStage[] = [
     priceUSD: null,
     benefits: ['Preventa exclusiva para clientes de los bancos aval desde el 12 de mayo', 'Venta con todos los medios de pago desde el 14 de mayo'],
     url: 'https://www.ticketmaster.co/event/festival-cordillera-2025',
+    analytics: 'entrada_vip_1'
   },
   {
     combo: 'VIP Sudamerican Rockers',
@@ -17,6 +18,7 @@ const vipPricing: PricingStage[] = [
     priceUSD: null,
     benefits: ['Preventa exclusiva para clientes de los bancos aval desde el 12 de mayo', 'Venta con todos los medios de pago desde el 14 de mayo'],
     url: 'https://www.ticketmaster.co/event/festival-cordillera-2025',
+    analytics: 'entrada_vip_2'
   },
   {
     combo: 'VIP Sudamerican Rockers',
@@ -25,6 +27,7 @@ const vipPricing: PricingStage[] = [
     priceUSD: null,
     benefits: ['Preventa exclusiva para clientes de los bancos aval desde el 12 de mayo', 'Venta con todos los medios de pago desde el 14 de mayo'],
     url: 'https://www.ticketmaster.co/event/festival-cordillera-2025',
+    analytics: 'entrada_vip_3'
   },
 ];
 const gaPricing: PricingStage[] = [
@@ -35,6 +38,7 @@ const gaPricing: PricingStage[] = [
     priceUSD: null,
     benefits: ['Preventa exclusiva para clientes de los bancos aval desde el 12 de mayo', 'Venta con todos los medios de pago desde el 14 de mayo'],
     url: 'https://www.ticketmaster.co/event/festival-cordillera-2025',
+    analytics: 'entrada_ga_1'
   },
   {
     combo: 'GA Sudamerican Rockers',
@@ -43,6 +47,7 @@ const gaPricing: PricingStage[] = [
     priceUSD: null,
     benefits: ['Preventa exclusiva para clientes de los bancos aval desde el 12 de mayo', 'Venta con todos los medios de pago desde el 14 de mayo'],
     url: 'https://www.ticketmaster.co/event/festival-cordillera-2025',
+    analytics: 'entrada_ga_2'
   },
   {
     combo: 'GA Sudamerican Rockers',
@@ -51,6 +56,7 @@ const gaPricing: PricingStage[] = [
     priceUSD: null,
     benefits: ['Preventa exclusiva para clientes de los bancos aval desde el 12 de mayo', 'Venta con todos los medios de pago desde el 14 de mayo'],
     url: 'https://www.ticketmaster.co/event/festival-cordillera-2025',
+    analytics: 'entrada_ga_3'
   },
 ];
 

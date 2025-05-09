@@ -12,6 +12,7 @@ export interface PricingStage {
   priceUSD: number | null;
   benefits: string[] | null;
   url: string | null;
+  analytics: string | null;
 }
 
 interface PricingTablesProps {
@@ -30,7 +31,7 @@ export default function PricingTables({ title = 'COMBO GENERAL', small = false, 
   return (
     <section className="w-full mx-auto">
       <h2 className={`${small ? 'text-h4-mobile md:text-h4-desktop' : 'text-h2-mobile md:text-h2-desktop'} font-frente text-mainlight text-3xl md:text-4xl uppercase mb-6`}>{title}</h2>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-[9px]">
         {stages.map((stage, idx) => (
           <div key={idx} className="bg-maindark text-mainlight">
             <div className="w-full mx-auto md:mx-0 px-6 py-4 md:py-6 md:px-8 border-b-2 border-ultra/80 last:border-b-0">
@@ -66,7 +67,7 @@ export default function PricingTables({ title = 'COMBO GENERAL', small = false, 
                     <span className="text-accentcyan font-bold pl-6 md:pl-0">{stage.priceUSD ? ' / ' + stage.priceUSD.toLocaleString('es-CO') + ' USD' : ''}</span>
                   </div>
                 </div>
-                <div className="hidden md:flex items-center justify-end">
+                <div className={`hidden md:flex items-center justify-end ${stage.analytics ?? ''}`} onClick={() => stage.analytics && window.open(stage.url || '', '_blank')}>
                   <Button variant="primary" cta frente onClick={() => window.open(stage.url || '', '_blank')}>ENTRADAS</Button>
                 </div>
               </div>
@@ -96,7 +97,7 @@ export default function PricingTables({ title = 'COMBO GENERAL', small = false, 
                 )}
               </AnimatePresence>
               <div className="flex md:hidden py-2">
-                <Button variant="primary" cta frente className="w-full" onClick={() => window.open(stage.url || '', '_blank')}>ENTRADAS</Button>
+                <Button variant="primary" cta frente className={`w-full ${stage.analytics ?? ''}`} onClick={() => stage.analytics && window.open(stage.url || '', '_blank')}>ENTRADAS</Button>
             </div>
             </div>
           </div>
