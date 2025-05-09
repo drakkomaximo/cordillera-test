@@ -92,39 +92,36 @@ const ContactSectionV2 = () => {
 
   return (
     <section className="flex justify-center items-center min-h-screen bg-maindark">
-      <div className="w-full rounded-lg overflow-hidden shadow-lg">
-        <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-          {/* Izquierda: Gradiente y arte */}
-          <div className="bg-contact-gradient border-[6px] border-black flex flex-col justify-start items-start p-8 relative overflow-hidden">
-            <div className="mx-16">
-            <OutlinedTitle className="md:!text-[64px] text-left w-full">
-              REGÍSTRATE PARA HACER PARTE DE LOS PROFETAS
-            </OutlinedTitle>
-            <p className="text-p-mobile md:text-[20px] text-mainlight mt-4 md:mt-8 font-frente leading-[100%] w-full text-left">
-              SÉ PARTE DE LA COMUNIDAD SUDAMERICANA ROCKERS, SÉ EL PRIMERO EN ENTERARTE DE TODAS LAS NOTICIAS QUE EL FESTIVAL CORDILLERA TRAE PARA TI
-            </p>
+      <div className="w-full min-h-screen rounded-lg overflow-hidden shadow-lg max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+          <div className="bg-contact-gradient border-[6px] border-black flex flex-col justify-start items-start p-0 md:p-8 relative overflow-hidden h-full pb-[300px] sm:pb-[500px] ">
+            <div className="mx-4 xl:mx-16 relative z-10">
+              <OutlinedTitle className="md:!text-[64px] !text-[52px] !text-left w-full">
+                REGÍSTRATE PARA HACER PARTE DE LOS PROFETAS
+              </OutlinedTitle>
+              <p className="text-p-mobile md:text-[20px] text-mainlight mt-4 md:mt-8 font-frente leading-[100%] w-full text-left">
+                SÉ PARTE DE LA COMUNIDAD SUDAMERICANA ROCKERS, SÉ EL PRIMERO EN ENTERARTE DE TODAS LAS NOTICIAS QUE EL FESTIVAL CORDILLERA TRAE PARA TI
+              </p>
             </div>
             <Image
               src="/contact-pet-desktop-stage-2.png"
               alt="Arte Cordillera"
               width={600}
               height={300}
-              className="hidden md:block absolute left-0 bottom-0 w-full pointer-events-none select-none"
-              style={{ zIndex: 2 }}
+              className="hidden md:block absolute left-0 bottom-0 w-full pointer-events-none select-none z-0"
               priority={false}
             />
             <Image
-              src="/contact-pet-mobile-stage-2.png"
+              src="/contact-pet-desktop-stage-2.png"
               alt="Arte Cordillera"
               width={400}
               height={120}
-              className="block md:hidden absolute left-0 bottom-0 w-full pointer-events-none select-none"
-              style={{ zIndex: 2 }}
+              className="block md:hidden absolute left-0 bottom-0 w-full pointer-events-none select-none z-0"
               priority={false}
             />
           </div>
-          <div className="bg-[#191916] flex flex-col justify-center p-8">
-            <div className='flex justify-center items-end md:justify-center w-full md:mt-[67px]'>
+          <div className="bg-[#191916] flex items-stretch justify-center p-6 md:p-8 h-full">
+            <div className='flex justify-center items-start md:justify-center w-full md:mt-[px] '>
               <AnimatePresence mode='wait'>
                 {isSuccess ? (
                   <motion.div
@@ -163,7 +160,7 @@ const ContactSectionV2 = () => {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     onSubmit={handleSubmit(onSubmit)}
-                    className='bg-transparent flex flex-col gap-2 md:mx-[0px] w-full md:max-w-[426px]'
+                    className='bg-transparent flex flex-col gap-2 md:mx-[0px] w-full md:max-w-[535px]'
                   >
                     <CustomInput 
                       label='Escribe tu nombre' 

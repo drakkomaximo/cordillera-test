@@ -88,9 +88,9 @@ export default function PricingTables({ title = 'COMBO GENERAL', small = false, 
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
-            <div className="flex md:hidden mt-4 px-6">
+              <div className="flex md:hidden py-2">
               <Button variant="primary" cta frente className="w-full">ENTRADAS</Button>
+            </div>
             </div>
           </div>
         ))}

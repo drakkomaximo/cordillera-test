@@ -5,18 +5,31 @@ import Entries from './Entries';
 import StageInfo from './StageInfo';
 import StagePet from './StagePet';
 import PropheciesBanner from './PropheciesBanner';
+import CollageSlider from '@/components/ui/CollageSlider';
+
+const images = [
+  '/slider/1.png', '/slider/2.png', '/slider/3.png', '/slider/4.png', '/slider/5.png',
+/*   '/slider/2.png', '/slider/3.png', null, '/slider/5.png', '/slider/1.png',
+  '/slider/3.png', null, null, '/slider/1.png', null, */
+];
 
 const StageTwo = () => {
   return (
     <section className='flex flex-col justify-center w-full bg-black px-0 py-0'>
       <Banner />
       <div className='flex justify-center w-full'>
-        <div className='grid grid-cols-1 sm:grid-cols-2 sm:m-8 md:m-0 lg:mt-14 lg:mb-0 gap-8 max-w-[1440px] mx-auto md:px-24 md:py-16'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 sm:m-6 md:m-0 lg:mt-14 lg:mb-0 gap-8 max-w-[1440px] mx-auto px-12 lg:px-24 md:py-16'>
           <StageInfo />
-          <StagePet />
+          <div className="relative w-full h-full flex items-center justify-center">
+            <StagePet />
+            <div className="absolute inset-0 flex flex-col items-start justify-center z-10 px-6 sm:px-0">
+              {/* Aquí puedes poner texto encima si lo deseas */}
+            </div>
+          </div>
         </div>
       </div>
       <Entries />
+      <CollageSlider images={images} />
       <PropheciesBanner active={true} />
     </section>
   );

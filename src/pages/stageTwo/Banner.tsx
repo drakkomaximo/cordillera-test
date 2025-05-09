@@ -12,13 +12,14 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[300px] md:h-[500px] max-w-[1440px] mx-auto">
+    <div className="w-full max-w-[1440px] mx-auto">
       <Image
         src={isMobile ? '/home-banner-mobile-stage-2.png' : '/home-banner-desktop-stage-2.png'}
         alt="home-banner"
         priority
         width={1440}
         height={500}
+        className="w-full h-auto object-cover"
       />
     </div>
   );
