@@ -51,8 +51,8 @@ export default function CollageSlider({ images }: CollageSliderProps) {
   while (filledGroup.length < 5) filledGroup.push(null);
 
   return (
-    <div className="w-full overflow-x-auto group relative">
-      <div className="flex h-[60vh] min-w-[700px] sm:min-w-0 sm:h-[80vh] w-max">
+    <div className="w-full group relative overflow-x-auto sm:overflow-x-hidden">
+      <div className="flex h-[60vh] min-w-[700px] sm:min-w-0 sm:h-[80vh] sm:block sm:w-full">
         <div className="relative w-full h-full overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div

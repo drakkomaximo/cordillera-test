@@ -10,7 +10,7 @@ export interface PricingStage {
   combo: string;
   priceCOP: number | null;
   priceUSD: number | null;
-  benefits: string | null;
+  benefits: string[] | null;
   url: string | null;
 }
 
@@ -67,7 +67,7 @@ export default function PricingTables({ title = 'COMBO GENERAL', small = false, 
                   </div>
                 </div>
                 <div className="hidden md:flex items-center justify-end">
-                  <Button variant="primary" cta frente>ENTRADAS</Button>
+                  <Button variant="primary" cta frente onClick={() => window.open(stage.url || '', '_blank')}>ENTRADAS</Button>
                 </div>
               </div>
               <AnimatePresence initial={false}>
@@ -88,7 +88,9 @@ export default function PricingTables({ title = 'COMBO GENERAL', small = false, 
                   >
                     <div className="border-t border-mainlight/30 my-4" />
                     <div className="text-mainlight/90 font-economica text-sm md:text-base pb-2 pt-1">
-                      {stage.benefits}
+                      {stage.benefits?.map((benefit, idx) => (
+                        <p key={idx}>- {benefit}</p>
+                      ))}
                     </div>
                   </motion.div>
                 )}
