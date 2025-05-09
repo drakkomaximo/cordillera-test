@@ -24,13 +24,8 @@ const OutlinedTitle: React.FC<OutlinedTitleProps> = ({ children, className = '',
 
   return (
     <h2
-      className={`text-outlined-title-mobile md:text-outlined-title-desktop font-frente ${className} ${isMobile ? 'text-center' : 'text-left'}`}
+      className={`text-outlined-title-mobile md:text-outlined-title-desktop font-frente ${isMobile ? 'text-center' : 'text-left'} ${className}`}
       style={{
-        // WebkitTextStroke: blueOutline
-        //   ? `1px ${outlineColor}`
-        //   : isMobile
-        //     ? '2px transparent'
-        //     : `2px ${outlineColor}`,
         color: '#E9DDB5',
         textShadow: blueOutline
           ? `
