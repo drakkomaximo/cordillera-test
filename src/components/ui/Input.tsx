@@ -1,6 +1,7 @@
 import React, { useRef, useState, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { subYears } from 'date-fns';
 
 const errorSpan = 'block text-error text-form-label-desktop mt-1 font-economica'; 
 
@@ -109,7 +110,7 @@ export const CustomDatePicker = ({
           popperClassName="z-50"
           customInput={<CustomInputField ref={inputRef} />}
           open={open}
-          maxDate={new Date()}
+          maxDate={subYears(new Date(), 18)}
           showMonthDropdown
           showYearDropdown
           dropdownMode="select"
@@ -280,7 +281,7 @@ export const PhoneInput = ({
       </span>
       <div className="relative flex items-center">
         <select
-          className={`px-2 py-2 border-none text-mainlight font-economica focus:outline-none focus:ring-2 focus:ring-transparent transition phone-indicative-select appearance-none`}
+          className={`px-2 py-1 pr-8 border-none text-mainlight font-economica focus:outline-none focus:ring-2 focus:ring-transparent transition phone-indicative-select appearance-none text-xs md:text-base md:px-2 md:py-2`}
           style={{ 
             background: '#1E1A1A', 
             border: 'none', 

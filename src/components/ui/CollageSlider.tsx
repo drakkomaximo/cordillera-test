@@ -19,14 +19,17 @@ function chunkArray<T>(arr: T[], size: number): T[][] {
   return res;
 }
 
+type CollageImage = { src: string; objectPosition?: string } | string | null;
 interface CollageSliderProps {
-  images: (string | null)[];
+  images: CollageImage[];
 }
 
 export default function CollageSlider({ images }: CollageSliderProps) {
   const SLIDES = chunkArray(images, 5);
   const [, emblaApi] = useEmblaCarousel({ loop: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const [positions, setPositions] = useState<{ [idx: number]: { x: number; y: number } }>({});
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -47,11 +50,11 @@ export default function CollageSlider({ images }: CollageSliderProps) {
   };
 
   const currentGroup = SLIDES[selectedIndex] || [];
-  const filledGroup: (string | null)[] = [...currentGroup];
+  const filledGroup: CollageImage[] = [...currentGroup];
   while (filledGroup.length < 5) filledGroup.push(null);
 
   return (
-    <div className="w-full group relative overflow-x-auto sm:overflow-x-hidden">
+    <div className="w-full group relative overflow-x-auto sm:overflow-x-hidden py-14 md:py-20">
       <div className="flex h-[60vh] min-w-[700px] sm:min-w-0 sm:h-[80vh] sm:block sm:w-full">
         <div className="relative w-full h-full overflow-hidden">
           <AnimatePresence mode="wait">
@@ -65,38 +68,54 @@ export default function CollageSlider({ images }: CollageSliderProps) {
               style={{ minWidth: 340 }}
             >
               <div className="flex flex-col gap-4 w-1/2 h-full min-w-[160px]">
-                {filledGroup.slice(0, 2).map((img, i) =>
-                  img ? (
-                    <div key={img + i} className="relative w-full h-1/2 min-h-[80px] max-h-full">
+                {filledGroup.slice(0, 2).map((img, i) => {
+                  if (!img) return <div key={`ph-v-${i}`} className="w-full h-1/2">{PLACEHOLDER}</div>;
+                  let src = '';
+                  let objectPosition = '50% 50%';
+                  if (typeof img === 'string') {
+                    src = img;
+                  } else if (img && typeof img === 'object' && 'src' in img) {
+                    src = img.src;
+                    if (img.objectPosition) objectPosition = img.objectPosition;
+                  }
+                  return (
+                    <div key={src + i} className="relative w-full h-1/2 min-h-[80px] max-h-full flex flex-col items-center">
                       <Image
-                        src={img}
+                        src={src}
                         alt={`collage-${i + 1}`}
                         fill
                         className="rounded-2xl object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        sizes="(max-width: 768px) 100vw, 600px"
+                        style={{ objectPosition }}
                       />
                     </div>
-                  ) : (
-                    <div key={`ph-v-${i}`} className="w-full h-1/2">{PLACEHOLDER}</div>
-                  )
-                )}
+                  );
+                })}
               </div>
               <div className="flex flex-row gap-4 w-1/2 h-full min-w-[240px]">
-                {filledGroup.slice(2, 5).map((img, i) =>
-                  img ? (
-                    <div key={img + (i + 2)} className="relative h-full w-1/3 min-w-[60px] max-w-full">
+                {filledGroup.slice(2, 5).map((img, i) => {
+                  if (!img) return <div key={`ph-h-${i}`} className="h-full w-1/3">{PLACEHOLDER}</div>;
+                  let src = '';
+                  let objectPosition = '50% 50%';
+                  if (typeof img === 'string') {
+                    src = img;
+                  } else if (img && typeof img === 'object' && 'src' in img) {
+                    src = img.src;
+                    if (img.objectPosition) objectPosition = img.objectPosition;
+                  }
+                  return (
+                    <div key={src + (i + 2)} className="relative h-full w-1/3 min-w-[60px] max-w-full flex flex-col items-center">
                       <Image
-                        src={img}
+                        src={src}
                         alt={`collage-${i + 3}`}
                         fill
                         className="rounded-2xl object-cover"
-                        sizes="(max-width: 768px) 33vw, 16vw"
+                        sizes="(max-width: 768px) 100vw, 600px"
+                        style={{ objectPosition }}
                       />
                     </div>
-                  ) : (
-                    <div key={`ph-h-${i}`} className="h-full w-1/3">{PLACEHOLDER}</div>
-                  )
-                )}
+                  );
+                })}
               </div>
             </motion.div>
           </AnimatePresence>

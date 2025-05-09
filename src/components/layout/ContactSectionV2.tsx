@@ -16,8 +16,7 @@ const schema = z.object({
   email: z.string().email("Correo inválido"),
   phone: z.string().refine(
     (val) => {
-      // Debe tener formato: +indicativo 10 dígitos
-      const match = val.match(/^\+[0-9]{1,4} [0-9]{10}$/);
+      const match = val.match(/^\+\d{1,4}\d{10}$/);
       return !!match;
     },
     { message: "Selecciona un indicativo y un número válido de 10 dígitos" }
@@ -68,7 +67,7 @@ const ContactSectionV2 = () => {
 
   useEffect(() => {
     if (indicative && phoneNumber.length === 10) {
-      setValue('phone', `${indicative} ${phoneNumber}`);
+      setValue('phone', `${indicative}${phoneNumber}`);
     } else {
       setValue('phone', '');
     }
@@ -114,7 +113,7 @@ const ContactSectionV2 = () => {
     <section className="flex justify-center items-center min-h-screen bg-maindark">
       <div className="w-full min-h-screen md:rounded-lg overflow-hidden shadow-lg max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
-          <div className="bg-contact-gradient md:border-[6px] md:border-black flex flex-col justify-start items-start p-0 md:p-8 relative overflow-hidden h-full pb-[350px] sm:pb-[500px] ">
+          <div className="bg-contact-gradient md:border-[6px] md:border-black flex flex-col justify-start items-start p-0 md:p-8 relative overflow-hidden h-full pb-[270px] sm:pb-[500px] ">
             <div className="mx-6 xl:mx-16 relative z-10">
               <OutlinedTitle className="md:!text-[64px] !text-[52px] !text-left w-full mt-[35px] md:mt-[0px]">
                 REGÍSTRATE PARA HACER PARTE DE LOS PROFETAS
@@ -141,7 +140,7 @@ const ContactSectionV2 = () => {
             />
           </div>
           <div className="bg-[#191916] flex items-stretch justify-center px-6 py-14 md:p-8 h-full">
-            <div className='flex justify-center items-start md:justify-center w-full md:mt-[px] '>
+            <div className='flex justify-center items-start md:justify-center w-full md:mt-[200px] '>
               <AnimatePresence mode='wait'>
                 {isSuccess ? (
                   <motion.div
@@ -150,13 +149,13 @@ const ContactSectionV2 = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className='flex flex-col items-center justify-start gap-2 '
+                    className='flex flex-col items-center justify-center gap-2 '
                   >
                     <div className='hidden md:flex flex-col items-left gap-0'>
-                      <OutlinedTitle style={{ fontSize: "82px", paddingBottom: "200px" }}>ENVÍO EXITOSO</OutlinedTitle>
+                      <OutlinedTitle style={{ fontSize: "82px", paddingBottom: "100px" }}>ENVÍO EXITOSO</OutlinedTitle>
                     </div>
                     <div className='flex md:hidden px-4 sm:px-0'>
-                      <OutlinedTitle style={{ fontSize: "52px", marginTop: "11rem" }} blueOutline>
+                      <OutlinedTitle style={{ fontSize: "52px" }} blueOutline>
                         ENVÍO EXITOSO
                       </OutlinedTitle>
                     </div>
