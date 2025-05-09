@@ -268,7 +268,7 @@ export const PhoneInput = ({
   disabled?: boolean;
   [key: string]: unknown;
 }) => (
-  <div className="mb-4">
+  <div className="mb-4 ">
     <label className="block text-mainlight mb-1 form-label-desktop font-bold font-economica">{label}</label>
     <div className="flex gap-0 items-center border px-4 py-3 rounded transition-colors duration-200 bg-black/30"
       style={{ borderColor: error ? '#FF5555' : '#E9DDB5' }}>
@@ -283,7 +283,7 @@ export const PhoneInput = ({
         <select
           className={`px-2 py-1 pr-8 border-none text-mainlight font-economica focus:outline-none focus:ring-2 focus:ring-transparent transition phone-indicative-select appearance-none text-xs md:text-base md:py-2`}
           style={{ 
-            background: '#0000004D', 
+            background: 'transparent', 
             border: 'none', 
             borderRight: `2px solid ${error ? '#FF5555' : '#E9DDB5'}` 
           }}
@@ -293,7 +293,7 @@ export const PhoneInput = ({
         >
           <option value="">Indicativo</option>
           {COUNTRY_CODES.map(opt => (
-            <option key={opt.code + opt.country} value={opt.code}>{opt.country} ({opt.code})</option>
+            <option className='text-mainlight bg-black font-economica' key={opt.code + opt.country} value={opt.code}>{opt.country} ({opt.code})</option>
           ))}
         </select>
         <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 pr-2" style={{color: '#E9DDB5'}}>
@@ -308,7 +308,7 @@ export const PhoneInput = ({
         pattern="[0-9]{10}"
         maxLength={10}
         minLength={10}
-        className={`w-full px-4 py-2 border-none text-mainlight placeholder-mainlight form-label-desktop font-normal font-economica focus:outline-none focus:ring-transparent transition bg-black/30`}
+        className={`w-full px-4 py-2 border-none text-mainlight placeholder-mainlight form-label-desktop font-normal font-economica focus:outline-none focus:ring-transparent transition bg-transparent`}
         value={value}
         onChange={e => onChangeNumber(e.target.value.replace(/[^0-9]/g, '').slice(0, 10))}
         placeholder="Número de celular"
