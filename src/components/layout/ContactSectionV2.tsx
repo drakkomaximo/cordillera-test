@@ -139,8 +139,8 @@ const ContactSectionV2 = () => {
               priority={false}
             />
           </div>
-          <div className="bg-[#191916] flex items-stretch justify-center px-6 py-14 md:p-8 h-full">
-            <div className='flex justify-center items-start md:justify-center w-full md:mt-[200px] '>
+          <div className="bg-[#191916] flex items-stretch justify-center px-6 py-14 md:px-8 h-full">
+            <div className={`flex justify-center items-start md:justify-center w-full ${isSuccess ? 'md:mt-[200px]' : 'md:mt-[0px]'}`}>
               <AnimatePresence mode='wait'>
                 {isSuccess ? (
                   <motion.div

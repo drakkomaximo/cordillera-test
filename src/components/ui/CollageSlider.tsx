@@ -53,7 +53,7 @@ export default function CollageSlider({ images }: CollageSliderProps) {
 
   return (
     <div className="w-full group relative overflow-x-auto sm:overflow-x-hidden py-14 md:py-20">
-      <div className="flex h-[60vh] min-w-[700px] sm:min-w-0 sm:h-[80vh] sm:block sm:w-full">
+      <div className="flex h-[60vh] min-w-[700px] sm:min-w-0 sm:h-[80vh] sm:block sm:w-full max-w-[1440px] mx-auto">
         <div className="relative w-full h-full overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div

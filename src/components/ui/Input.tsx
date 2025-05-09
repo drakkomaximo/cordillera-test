@@ -270,8 +270,8 @@ export const PhoneInput = ({
 }) => (
   <div className="mb-4">
     <label className="block text-mainlight mb-1 form-label-desktop font-bold font-economica">{label}</label>
-    <div className="flex gap-0 items-center border px-4 py-3 rounded transition-colors duration-200"
-      style={{ borderColor: error ? '#FF5555' : '#E9DDB5', background: '#1E1A1A' }}>
+    <div className="flex gap-0 items-center border px-4 py-3 rounded transition-colors duration-200 bg-black/30"
+      style={{ borderColor: error ? '#FF5555' : '#E9DDB5' }}>
       <span className={`mr-2 flex-shrink-0 ${error ? 'text-error' : 'text-mainlight'}`}>
         <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path d='M13.535 0.807967C12.779 0.0519668 11.463 0.0519668 10.707 0.807967L0.807999 10.707C0.433301 11.0822 0.222839 11.5907 0.222839 12.121C0.222839 12.6512 0.433301 13.1598 0.807999 13.535L6.465 19.192C6.843 19.57 7.345 19.778 7.879 19.778C8.413 19.778 8.915 19.57 9.293 19.192L19.192 9.29297C19.57 8.91497 19.778 8.41297 19.778 7.87897C19.778 7.34497 19.57 6.84297 19.192 6.46497L13.535 0.807967ZM7.879 17.778L2.222 12.121L12.121 2.22197L17.778 7.87897L7.879 17.778Z' fill='currentColor'/>
@@ -281,9 +281,9 @@ export const PhoneInput = ({
       </span>
       <div className="relative flex items-center">
         <select
-          className={`px-2 py-1 pr-8 border-none text-mainlight font-economica focus:outline-none focus:ring-2 focus:ring-transparent transition phone-indicative-select appearance-none text-xs md:text-base md:px-2 md:py-2`}
+          className={`px-2 py-1 pr-8 border-none text-mainlight font-economica focus:outline-none focus:ring-2 focus:ring-transparent transition phone-indicative-select appearance-none text-xs md:text-base md:py-2`}
           style={{ 
-            background: '#1E1A1A', 
+            background: '#0000004D', 
             border: 'none', 
             borderRight: `2px solid ${error ? '#FF5555' : '#E9DDB5'}` 
           }}
@@ -308,13 +308,12 @@ export const PhoneInput = ({
         pattern="[0-9]{10}"
         maxLength={10}
         minLength={10}
-        className={`w-full px-4 py-2 border-none text-mainlight placeholder-mainlight form-label-desktop font-normal font-economica bg-transparent focus:outline-none focus:ring-transparent transition`}
+        className={`w-full px-4 py-2 border-none text-mainlight placeholder-mainlight form-label-desktop font-normal font-economica focus:outline-none focus:ring-transparent transition bg-black/30`}
         value={value}
         onChange={e => onChangeNumber(e.target.value.replace(/[^0-9]/g, '').slice(0, 10))}
         placeholder="Número de celular"
         disabled={disabled}
         {...props}
-        style={{ background: '#1E1A1A', border: 'none' }}
       />
     </div>
     {error && <span className="block text-error text-form-label-desktop mt-1 font-economica">{error}</span>}
