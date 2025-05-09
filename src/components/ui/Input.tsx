@@ -270,7 +270,7 @@ export const PhoneInput = ({
 }) => (
   <div className="mb-4 ">
     <label className="block text-mainlight mb-1 form-label-desktop font-bold font-economica">{label}</label>
-    <div className="flex gap-0 items-center border px-4 py-3 rounded transition-colors duration-200 bg-black/30"
+    <div className="flex gap-0 items-center border px-4 py-1 transition-colors duration-200 bg-black/30"
       style={{ borderColor: error ? '#FF5555' : '#E9DDB5' }}>
       <span className={`mr-2 flex-shrink-0 ${error ? 'text-error' : 'text-mainlight'}`}>
         <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
