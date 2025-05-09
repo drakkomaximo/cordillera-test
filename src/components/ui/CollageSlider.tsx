@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 const PLACEHOLDER = (
   <div className="flex items-center justify-center bg-gray-800/40 rounded-2xl w-full h-full min-h-[120px] min-w-[80px]">
@@ -24,7 +25,7 @@ interface CollageSliderProps {
 
 export default function CollageSlider({ images }: CollageSliderProps) {
   const SLIDES = chunkArray(images, 5);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const [, emblaApi] = useEmblaCarousel({ loop: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const onSelect = useCallback(() => {
@@ -65,12 +66,15 @@ export default function CollageSlider({ images }: CollageSliderProps) {
             <div className="flex flex-col gap-4 w-1/2 h-full min-w-[160px]">
               {filledGroup.slice(0, 2).map((img, i) =>
                 img ? (
-                  <img
-                    key={img + i}
-                    src={img}
-                    alt={`collage-${i + 1}`}
-                    className="rounded-2xl object-cover w-full h-1/2 min-h-[80px] max-h-full"
-                  />
+                  <div key={img + i} className="relative w-full h-1/2 min-h-[80px] max-h-full">
+                    <Image
+                      src={img}
+                      alt={`collage-${i + 1}`}
+                      fill
+                      className="rounded-2xl object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
                 ) : (
                   <div key={`ph-v-${i}`} className="w-full h-1/2">{PLACEHOLDER}</div>
                 )
@@ -79,12 +83,15 @@ export default function CollageSlider({ images }: CollageSliderProps) {
             <div className="flex flex-row gap-4 w-1/2 h-full min-w-[240px]">
               {filledGroup.slice(2, 5).map((img, i) =>
                 img ? (
-                  <img
-                    key={img + (i + 2)}
-                    src={img}
-                    alt={`collage-${i + 3}`}
-                    className="rounded-2xl object-cover h-full w-1/3 min-w-[60px] max-w-full"
-                  />
+                  <div key={img + (i + 2)} className="relative h-full w-1/3 min-w-[60px] max-w-full">
+                    <Image
+                      src={img}
+                      alt={`collage-${i + 3}`}
+                      fill
+                      className="rounded-2xl object-cover"
+                      sizes="(max-width: 768px) 33vw, 16vw"
+                    />
+                  </div>
                 ) : (
                   <div key={`ph-h-${i}`} className="h-full w-1/3">{PLACEHOLDER}</div>
                 )
