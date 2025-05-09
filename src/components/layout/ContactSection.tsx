@@ -115,7 +115,7 @@ const ContactSection = () => {
         <div className='relative z-10'>
           <div className={`flex flex-col md:grid md:grid-cols-2 gap-4 mx-6 md:mx-[0px] md:gap-6 items-stretch`}>
             <div className='hidden md:flex flex-col justify-start mt-[144px] md:mt-[0px] md:pt-[53px]'>
-              <OutlinedTitle className="md:text-[68px] lg:text-[82px]">Registrate para hacer parte de los profetas</OutlinedTitle>
+              <OutlinedTitle className="md:!text-[68px] lg:text-[82px]">Registrate para hacer parte de los profetas</OutlinedTitle>
               <p className='text-p-mobile md:text-[36px] text-mainlight mt-[20px] md:mt-[44px] border_text font-frente leading-[100%]'>
                 Sé parte de la Comunidad Sudamerican Rockers, sé el primero en enterarte de todas las noticias que el Festival Cordillera trae para ti
               </p>
