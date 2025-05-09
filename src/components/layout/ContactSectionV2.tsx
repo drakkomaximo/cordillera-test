@@ -231,13 +231,13 @@ const ContactSectionV2 = () => {
                     />
 
                     <CustomCheckbox
-                      label="Autorizo el uso de mi información conforme a al aviso de "
+                      label="Autorizo el uso de mi información conforme a al "
                       checked={termsChecked}
                       onChange={(checked) => setValue("terms", checked, { shouldValidate: true })}
                       disabled={isSubmitting}
                       error={errors.terms?.message}
-                      link="https://paramopresenta.com/politicas.pdf"
-                      linkText="privacidad"
+                      link="https://www.cordillerafestival.com/docs/Aviso%20de%20privacidad.docx.pdf"
+                      linkText="Aviso de privacidad"
                     />
 
                     <Button type='submit' className='primary mt-8 font-normal pb-5' disabled={isSubmitting}>

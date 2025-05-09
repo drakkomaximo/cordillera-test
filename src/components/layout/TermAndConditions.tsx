@@ -11,7 +11,7 @@ const TermAndConditions = () => {
       links: [
         {
           id: 1,
-          label: 'Política de privacidad',
+          label: 'Aviso de privacidad',
           href: 'https://www.cordillerafestival.com/docs/Aviso%20de%20privacidad.docx.pdf',
           target: '_blank',
           rel: 'noopener noreferrer',
