@@ -8,9 +8,7 @@ import PropheciesBanner from './PropheciesBanner';
 import CollageSlider from '@/components/ui/CollageSlider';
 
 const images = [
-  '/slider/1.png', '/slider/2.png', '/slider/3.png', '/slider/4.png', '/slider/5.png',
-/*   '/slider/2.png', '/slider/3.png', null, '/slider/5.png', '/slider/1.png',
-  '/slider/3.png', null, null, '/slider/1.png', null, */
+  '/slider/1.jpg', '/slider/2.jpg', '/slider/3.png', '/slider/4.jpg', '/slider/5.jpg',
 ];
 
 const StageTwo = () => {

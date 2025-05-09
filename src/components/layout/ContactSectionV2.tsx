@@ -3,7 +3,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CustomInput, CustomInputWithIcon, CustomDatePicker, CustomCheckbox } from "../ui/Input";
+import { CustomInput, CustomInputWithIcon, CustomDatePicker, CustomCheckbox, PhoneInput } from "../ui/Input";
 import OutlinedTitle from "../ui/OutlinedTitle";
 import React, { useState, useEffect } from "react";
 import Button from "../ui/Button";
@@ -14,7 +14,14 @@ const schema = z.object({
   name: z.string().min(2, "El nombre es requerido"),
   surname: z.string().min(2, "El apellido es requerido"),
   email: z.string().email("Correo inválido"),
-  phone: z.string().min(7, "Número inválido"),
+  phone: z.string().refine(
+    (val) => {
+      // Debe tener formato: +indicativo 10 dígitos
+      const match = val.match(/^\+[0-9]{1,4} [0-9]{10}$/);
+      return !!match;
+    },
+    { message: "Selecciona un indicativo y un número válido de 10 dígitos" }
+  ),
   birthdate: z.date({ required_error: "Fecha requerida" }),
   terms: z.boolean().refine((val) => val === true, {
     message: "Debes aceptar el aviso de privacidad",
@@ -48,6 +55,7 @@ const ContactSectionV2 = () => {
     defaultValues: {
       birthdate: undefined,
       terms: false,
+      phone: '',
     },
     mode: "onChange",
   });
@@ -55,6 +63,16 @@ const ContactSectionV2 = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [indicative, setIndicative] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  useEffect(() => {
+    if (indicative && phoneNumber.length === 10) {
+      setValue('phone', `${indicative} ${phoneNumber}`);
+    } else {
+      setValue('phone', '');
+    }
+  }, [indicative, phoneNumber, setValue]);
 
   const onSubmit = async (data: FormData) => {
     setErrorMsg("");
@@ -78,6 +96,8 @@ const ContactSectionV2 = () => {
       if (result.result === "success" || (result.raw && result.raw.includes("success"))) {
         setIsSuccess(true);
         reset();
+        setIndicative('');
+        setPhoneNumber('');
         setTimeout(() => setIsSuccess(false), 4000);
       } else {
         setErrorMsg("Error al registrar. Intenta de nuevo");
@@ -193,26 +213,14 @@ const ContactSectionV2 = () => {
                       {...register("email")}
                     />
 
-                    <CustomInputWithIcon
-                      label='Escribe tu numero de celular'
-                      placeholder=''
-                      icon={
-                        <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                          <path
-                            d='M13.535 0.807967C12.779 0.0519668 11.463 0.0519668 10.707 0.807967L0.807999 10.707C0.433301 11.0822 0.222839 11.5907 0.222839 12.121C0.222839 12.6512 0.433301 13.1598 0.807999 13.535L6.465 19.192C6.843 19.57 7.345 19.778 7.879 19.778C8.413 19.778 8.915 19.57 9.293 19.192L19.192 9.29297C19.57 8.91497 19.778 8.41297 19.778 7.87897C19.778 7.34497 19.57 6.84297 19.192 6.46497L13.535 0.807967ZM7.879 17.778L2.222 12.121L12.121 2.22197L17.778 7.87897L7.879 17.778Z'
-                            fill='currentColor'
-                          />
-                          <path d='M7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z' fill='currentColor' />
-                          <path
-                            d='M13.707 19.707L12.293 18.293L18.293 12.293L19.707 13.708L13.707 19.707ZM6.29303 0.292969L7.70703 1.70697L1.70703 7.70697L0.29303 6.29197L6.29303 0.292969Z'
-                            fill='currentColor'
-                          />
-                        </svg>
-                      }
-                      type='tel'
-                      disabled={isSubmitting}
+                    <PhoneInput
+                      label="Escribe tu número de celular"
+                      value={phoneNumber}
+                      onChangeNumber={setPhoneNumber}
+                      indicative={indicative}
+                      onChangeIndicative={setIndicative}
                       error={errors.phone?.message}
-                      {...register("phone")}
+                      disabled={isSubmitting}
                     />
 
                     <Controller
