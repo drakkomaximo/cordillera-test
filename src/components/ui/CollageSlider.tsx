@@ -29,8 +29,6 @@ export default function CollageSlider({ images }: CollageSliderProps) {
   const [, emblaApi] = useEmblaCarousel({ loop: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const [positions, setPositions] = useState<{ [idx: number]: { x: number; y: number } }>({});
-
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
