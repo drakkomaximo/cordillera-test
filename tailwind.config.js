@@ -19,6 +19,8 @@ module.exports = {
         'h2-mobile': ['32px', { lineHeight: '32px' }],
         'h3-desktop': ['36px', { lineHeight: '36px' }],
         'h3-mobile': ['20px', { lineHeight: '20px' }],
+        'h4-desktop': ['24px', { lineHeight: '24px' }],
+        'h4-mobile': ['18px', { lineHeight: '18px' }],
         // Paragraphs
         'p-desktop': ['20px', { lineHeight: '32px' }],
         'p-mobile': ['16px', { lineHeight: '24px' }],

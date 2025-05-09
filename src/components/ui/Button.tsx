@@ -5,12 +5,14 @@ import React from 'react';
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary';
   cta?: boolean;
+  frente?: boolean;
   children: React.ReactNode;
 };
 
 export default function Button({
   variant = 'primary',
   cta = false,
+  frente = false,
   disabled = false,
   children,
   className = '',
@@ -20,6 +22,7 @@ export default function Button({
     'font-economica font-bold uppercase px-8 py-3 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accentcyan';
 
   const ctaClass = cta ? 'text-cta-mobile' : 'text-cta-mobile md:text-cta-desktop';
+  const frenteClass = frente ? 'font-frente font-normal !py-4 !pb-5 !px-6' : 'font-economica';
 
   const variants = {
     primary: [
@@ -42,7 +45,7 @@ export default function Button({
     <button
       type="button"
       disabled={disabled}
-      className={`${base} ${variants[variant]} ${ctaClass} ${className}`}
+      className={`${base} ${variants[variant]} ${ctaClass} ${frenteClass} ${className}`}
       aria-disabled={disabled}
       tabIndex={disabled ? -1 : 0}
       {...props}

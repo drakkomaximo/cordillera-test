@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ContactSection from "../components/layout/ContactSection";
 import Script from "next/script";
 import CookieBanner from "../components/cookies/CookieBanner";
 import CookieSettings from "../components/cookies/CookieSettings";
-import TermAndConditions from "@/components/layout/TermAndConditions";
-import Logos from "@/components/layout/Logos";
-
+import Footer from "@/components/layout/Footer";
+import ContactSectionV2 from "@/components/layout/ContactSectionV2";
 export const metadata: Metadata = {
   title: "Festival Cordillera 2025: 13 y 14 de Septiembre",
   description: "Bogotá recibe el Festival Cordillera 2025 el 13 y 14 de septiembre. Disfruta artistas únicos, diversidad cultural y conexión con la tierra.",
@@ -39,9 +37,8 @@ export default function RootLayout({
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         {children}
-        <ContactSection />
-        <Logos />
-        <TermAndConditions />
+        <ContactSectionV2 />
+        <Footer />
         <CookieBanner />
         <CookieSettings />
       </body>

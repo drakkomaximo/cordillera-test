@@ -1,8 +1,8 @@
-import StageOne from "@/pages/stageOne";
+import StageTwo from "@/pages/stageTwo";
 
 export default function Home() {
 
   return (
-    <StageOne />
+    <StageTwo />
   );
 }
