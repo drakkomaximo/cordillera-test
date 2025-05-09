@@ -11,6 +11,7 @@ export interface PricingStage {
   priceCOP: number | null;
   priceUSD: number | null;
   benefits: string | null;
+  url: string | null;
 }
 
 interface PricingTablesProps {
@@ -93,7 +94,7 @@ export default function PricingTables({ title = 'COMBO GENERAL', small = false, 
                 )}
               </AnimatePresence>
               <div className="flex md:hidden py-2">
-              <Button variant="primary" cta frente className="w-full">ENTRADAS</Button>
+                <Button variant="primary" cta frente className="w-full" onClick={() => window.open(stage.url || '', '_blank')}>ENTRADAS</Button>
             </div>
             </div>
           </div>

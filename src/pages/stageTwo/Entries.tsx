@@ -8,6 +8,7 @@ const pricingGeneral: PricingStage[] = [
     priceCOP: 300000,
     priceUSD: null,
     benefits: null,
+    url: 'https://www.ticketmaster.co/event/festival-cordillera-2025',
   },
 ]
 
@@ -18,6 +19,7 @@ const pricingVip: PricingStage[] = [
     priceCOP: 300000,
     priceUSD: null,
     benefits: null,
+    url: 'https://www.ticketmaster.co/event/festival-cordillera-2025',
   },
 ]
 

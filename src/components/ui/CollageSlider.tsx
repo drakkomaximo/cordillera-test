@@ -51,76 +51,78 @@ export default function CollageSlider({ images }: CollageSliderProps) {
   while (filledGroup.length < 5) filledGroup.push(null);
 
   return (
-    <div className="w-full h-[80vh] overflow-hidden group relative">
-      <div className="relative w-full h-full overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="absolute inset-0 w-full h-full flex gap-4 overflow-x-auto"
-            style={{ minWidth: 340 }}
-          >
-            <div className="flex flex-col gap-4 w-1/2 h-full min-w-[160px]">
-              {filledGroup.slice(0, 2).map((img, i) =>
-                img ? (
-                  <div key={img + i} className="relative w-full h-1/2 min-h-[80px] max-h-full">
-                    <Image
-                      src={img}
-                      alt={`collage-${i + 1}`}
-                      fill
-                      className="rounded-2xl object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                ) : (
-                  <div key={`ph-v-${i}`} className="w-full h-1/2">{PLACEHOLDER}</div>
-                )
-              )}
-            </div>
-            <div className="flex flex-row gap-4 w-1/2 h-full min-w-[240px]">
-              {filledGroup.slice(2, 5).map((img, i) =>
-                img ? (
-                  <div key={img + (i + 2)} className="relative h-full w-1/3 min-w-[60px] max-w-full">
-                    <Image
-                      src={img}
-                      alt={`collage-${i + 3}`}
-                      fill
-                      className="rounded-2xl object-cover"
-                      sizes="(max-width: 768px) 33vw, 16vw"
-                    />
-                  </div>
-                ) : (
-                  <div key={`ph-h-${i}`} className="h-full w-1/3">{PLACEHOLDER}</div>
-                )
-              )}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-          {selectedIndex > 0 && (
-        <div className="absolute left-0 top-0 h-full w-1/6 z-20 cursor-pointer group/left">
-            <button
-              onClick={handlePrev}
-              className="opacity-0 group-hover/left:opacity-100 transition-opacity duration-300 absolute left-4 top-1/2 -translate-y-1/2 bg-mainlight text-ultra border-2 border-accentcyan rounded-full shadow-lg p-4 text-3xl font-bold hover:bg-accentcyan hover:text-mainlight focus:outline-none"
-              aria-label="Anterior"
+    <div className="w-full overflow-x-auto group relative">
+      <div className="flex h-[60vh] min-w-[700px] sm:min-w-0 sm:h-[80vh] w-max">
+        <div className="relative w-full h-full overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 w-full h-full flex gap-4 overflow-x-auto"
+              style={{ minWidth: 340 }}
             >
-              &#8592;
-            </button>
-          </div>
+              <div className="flex flex-col gap-4 w-1/2 h-full min-w-[160px]">
+                {filledGroup.slice(0, 2).map((img, i) =>
+                  img ? (
+                    <div key={img + i} className="relative w-full h-1/2 min-h-[80px] max-h-full">
+                      <Image
+                        src={img}
+                        alt={`collage-${i + 1}`}
+                        fill
+                        className="rounded-2xl object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                  ) : (
+                    <div key={`ph-v-${i}`} className="w-full h-1/2">{PLACEHOLDER}</div>
+                  )
+                )}
+              </div>
+              <div className="flex flex-row gap-4 w-1/2 h-full min-w-[240px]">
+                {filledGroup.slice(2, 5).map((img, i) =>
+                  img ? (
+                    <div key={img + (i + 2)} className="relative h-full w-1/3 min-w-[60px] max-w-full">
+                      <Image
+                        src={img}
+                        alt={`collage-${i + 3}`}
+                        fill
+                        className="rounded-2xl object-cover"
+                        sizes="(max-width: 768px) 33vw, 16vw"
+                      />
+                    </div>
+                  ) : (
+                    <div key={`ph-h-${i}`} className="h-full w-1/3">{PLACEHOLDER}</div>
+                  )
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+          {selectedIndex > 0 && (
+            <div className="absolute left-0 top-0 h-full w-1/6 z-20 cursor-pointer group/left">
+              <button
+                onClick={handlePrev}
+                className="opacity-0 group-hover/left:opacity-100 transition-opacity duration-300 absolute left-4 top-1/2 -translate-y-1/2 bg-mainlight text-ultra border-2 border-accentcyan rounded-full shadow-lg p-4 text-3xl font-bold hover:bg-accentcyan hover:text-mainlight focus:outline-none"
+                aria-label="Anterior"
+              >
+                &#8592;
+              </button>
+            </div>
           )}
           {selectedIndex < SLIDES.length - 1 && (
-        <div className="absolute right-0 top-0 h-full w-1/6 z-20 cursor-pointer group/right">
-            <button
-              onClick={handleNext}
-              className="opacity-0 group-hover/right:opacity-100 transition-opacity duration-300 absolute right-4 top-1/2 -translate-y-1/2 bg-mainlight text-ultra border-2 border-accentcyan rounded-full shadow-lg p-4 text-3xl font-bold hover:bg-accentcyan hover:text-mainlight focus:outline-none"
-              aria-label="Siguiente"
-            >
-              &#8594;
-            </button>
-        </div>
+            <div className="absolute right-0 top-0 h-full w-1/6 z-20 cursor-pointer group/right">
+              <button
+                onClick={handleNext}
+                className="opacity-0 group-hover/right:opacity-100 transition-opacity duration-300 absolute right-4 top-1/2 -translate-y-1/2 bg-mainlight text-ultra border-2 border-accentcyan rounded-full shadow-lg p-4 text-3xl font-bold hover:bg-accentcyan hover:text-mainlight focus:outline-none"
+                aria-label="Siguiente"
+              >
+                &#8594;
+              </button>
+            </div>
           )}
+        </div>
       </div>
     </div>
   );

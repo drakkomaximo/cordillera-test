@@ -19,7 +19,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const base =
-    'font-economica font-bold uppercase px-8 py-3 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accentcyan';
+    'font-frente font-bold uppercase px-8 py-3 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accentcyan';
 
   const ctaClass = cta ? 'text-cta-mobile' : 'text-cta-mobile md:text-cta-desktop';
   const frenteClass = frente ? 'font-frente font-normal !py-4 !pb-5 !px-6' : 'font-economica';
