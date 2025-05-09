@@ -19,8 +19,12 @@ interface PricingTablesProps {
   stages: PricingStage[];
 }
 
-export default function PricingTables({ title = 'COMBO GENERAL', small = false, stages }: PricingTablesProps) {
+export default function PricingTables({ title = 'COMBO GENERAL', small = false, stages = [] }: PricingTablesProps) {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+
+  if (!stages || stages.length === 0) {
+    return null;
+  }
 
   return (
     <section className="w-full mx-auto">
