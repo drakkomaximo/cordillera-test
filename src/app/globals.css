@@ -66,7 +66,7 @@ body,
   padding: 0;
 }
 
-/* Fix react-datepicker background and text color */
+/* Calendario personalizado */
 .react-datepicker,
 .react-datepicker__month-container,
 .react-datepicker__header,
@@ -77,28 +77,89 @@ body,
 .react-datepicker__day--keyboard-selected,
 .react-datepicker__day--today,
 .react-datepicker__day--outside-month {
-  background: #fff !important;
-  color: #191916 !important;
+  background: #010101 !important;
+  color: #E9DDB5 !important;
 }
 
-.react-datepicker__day--selected,
-.react-datepicker__day--keyboard-selected {
-  background: #e9ddb5 !important;
-  color: #191916 !important;
-}
-
-.react-datepicker {
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+.react-datepicker__day.react-datepicker__day--selected,
+.react-datepicker__day.react-datepicker__day--keyboard-selected {
+  background: #0ED1D6 !important;
+  color: #010101 !important;
+  font-family: "Frente Nacional", sans-serif !important;
 }
 
 .react-datepicker__day--disabled {
   opacity: 0.3 !important;
-  color: #e9ddb5 !important;
+  color: #E9DDB5 !important;
   background: transparent !important;
   cursor: not-allowed !important;
 }
 
+/* Puedes ajustar el borde si lo deseas: */
+.react-datepicker {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 1px solid #0ED1D6;
+}
+
 .border_text {
   text-shadow: 1px 0 #191916, -1px 0 #191916, 0 1px #191916, 0 -1px #191916, 1px 1px #191916, -1px -1px #191916, 1px -1px #191916, -1px 1px #191916;
+}
+
+/* Selectores de mes y año */
+.react-datepicker__current-month,
+.react-datepicker__month-read-view,
+.react-datepicker__year-read-view,
+.react-datepicker__month-dropdown,
+.react-datepicker__year-dropdown,
+.react-datepicker__month-dropdown-container,
+.react-datepicker__year-dropdown-container {
+  background: #010101 !important;
+  color: #E9DDB5 !important;
+}
+
+.react-datepicker__month-dropdown,
+.react-datepicker__year-dropdown {
+  border: 1px solid #0ED1D6 !important;
+}
+
+.react-datepicker__navigation {
+  background: transparent !important;
+  color: #E9DDB5 !important;
+}
+
+/* Labels de los días (Su, Mo, etc.) */
+.react-datepicker__day-name {
+  color: #E9DDB5 !important;
+  background: #010101 !important;
+  font-family: "Economica", sans-serif !important;
+}
+
+/* Cabecera del mes y año */
+.react-datepicker__header {
+  background: #010101 !important;
+  color: #E9DDB5 !important;
+  border-bottom: 1px solid #0ED1D6 !important;
+}
+
+/* El calendario siempre por encima */
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
+
+.react-datepicker__month-select,
+.react-datepicker__year-select {
+  background: #010101 !important;
+  color: #E9DDB5 !important;
+  border: 1px solid #0ED1D6 !important;
+  font-family: "Economica", sans-serif !important;
+}
+
+.react-datepicker__current-month {
+  font-family: "Frente Nacional", sans-serif !important;
+  padding: 4px 0 !important;
+}
+
+.react-datepicker__day {
+  font-family: "Economica", sans-serif !important;
 }

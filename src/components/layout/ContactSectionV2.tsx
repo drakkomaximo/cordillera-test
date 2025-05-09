@@ -17,7 +17,7 @@ const schema = z.object({
   phone: z.string().min(7, "Número inválido"),
   birthdate: z.date({ required_error: "Fecha requerida" }),
   terms: z.boolean().refine((val) => val === true, {
-    message: "Debes aceptar los Términos y Condiciones",
+    message: "Debes aceptar el aviso de privacidad",
   }),
 });
 
