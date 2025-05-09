@@ -1,5 +1,5 @@
 const StageInfo = () => (
-  <div className='flex flex-col items-start justify-start h-full px-0 sm:px-0'>
+  <div className='flex flex-col items-start justify-start h-full px-0 sm:px-0 pt-14 md:pt-0'>
     <h1 className='text-h1-mobile md:text-h1-desktop text-mainlight font-frente text-left'>
       ¡SUDAMERICAN ROCKERS YA A LA VENTA!
     </h1>

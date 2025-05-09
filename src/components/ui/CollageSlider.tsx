@@ -52,7 +52,7 @@ export default function CollageSlider({ images }: CollageSliderProps) {
   while (filledGroup.length < 5) filledGroup.push(null);
 
   return (
-    <div className="w-full group relative overflow-x-auto sm:overflow-x-hidden py-14 md:py-20">
+    <div className="w-full group relative overflow-x-auto sm:overflow-x-hidden py-[100px] md:py-[120px]">
       <div className="flex h-[60vh] min-w-[700px] sm:min-w-0 sm:h-[80vh] sm:block sm:w-full max-w-[1440px] mx-auto">
         <div className="relative w-full h-full overflow-hidden">
           <AnimatePresence mode="wait">

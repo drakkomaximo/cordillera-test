@@ -160,20 +160,20 @@ const CookieSettings = () => {
         <div className="border-b border-black my-4" />
         <div className="grid grid-cols-2 gap-4 md:justify-between items-center mb-4">
           <button
-            className="w-full md:w-auto border border-black py-0 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
+            className="w-full md:w-auto border border-black py-0 px-4 font-frente text-lg hover:bg-black hover:text-white transition font-normal"
             onClick={acceptAll}
           >
             Aceptar todas
           </button>
           <button
-            className="w-full md:w-auto border border-black py-0 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
+            className="w-full md:w-auto border border-black py-0 px-4 font-frente text-lg hover:bg-black hover:text-white transition font-normal"
             onClick={rejectAll}
           >
             Rechazar todas
           </button>
         </div>
         <button
-          className="w-full bg-black text-white py-1 px-4 font-economica text-lg rounded hover:bg-transparent hover:text-black border border-black transition"
+          className="w-full bg-black text-white py-1 px-4 font-frente text-lg rounded hover:bg-transparent hover:text-black border border-black transition font-normal"
           onClick={() => saveConsent(localConsent)}
         >
           Guardar la configuración

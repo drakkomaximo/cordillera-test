@@ -106,13 +106,13 @@ const CookieBanner = () => {
         <hr className="border-black mb-4" />
         <div className="grid grid-cols-2 gap-4 md:gap-0 md:justify-between items-center">
           <button
-            className="w-full md:w-auto border border-black py-0 px-4 font-economica text-lg hover:bg-black hover:text-white transition"
+            className="w-full md:w-auto border border-black py-0 px-4 text-lg hover:bg-black hover:text-white transition font-frente font-normal"
             onClick={acceptAll}
           >
             Aceptar todas
           </button>
           <button
-            className="w-full md:w-auto font-economica text-lg underline md:ml-8"
+            className="w-full md:w-auto font-frente text-lg underline md:ml-8 font-normal"
             onClick={openSettings}
           >
             Administrar las cookies

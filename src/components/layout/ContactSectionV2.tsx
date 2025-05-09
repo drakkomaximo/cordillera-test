@@ -125,9 +125,9 @@ const ContactSectionV2 = () => {
             <Image
               src="/contact-pet-desktop-stage-2.png"
               alt="Arte Cordillera"
-              width={600}
+              width={500}
               height={300}
-              className="hidden md:block absolute left-0 bottom-0 w-full pointer-events-none select-none z-0"
+              className="hidden md:block absolute right-0 bottom-0 w-[85%] pointer-events-none select-none z-0"
               priority={false}
             />
             <Image
