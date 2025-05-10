@@ -54,10 +54,10 @@ export default function InfiniteCollageSlider({ images }: InfiniteCollageSliderP
 
   return (
     <div className="w-full py-[100px] md:py-[120px] overflow-hidden max-w-[1440px] mx-auto">
-      <div className="h-screen w-full">
+      <div className="h-[70vh] md:h-screen w-full">
         <div 
           ref={containerRef}
-          className="flex gap-4 h-full w-[300%] sm:w-[200%] lg:w-full xl:w-screen"
+          className="flex gap-4 h-full h w-[250%] sm:w-[200%] lg:w-full xl:w-screen"
           style={{ willChange: 'transform' }}
         >
           {collages.map((group, idx) => {
