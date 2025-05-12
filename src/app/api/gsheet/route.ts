@@ -14,10 +14,19 @@ export async function POST(request: NextRequest) {
     } else {
       return NextResponse.json(response.data, { status: response.status });
     }
-  } catch (error: any) {
-    if (error.response) {
-      return NextResponse.json(error.response.data, { status: error.response.status });
+  } catch (error: unknown) {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'response' in error &&
+      error.response &&
+      typeof error.response === 'object' &&
+      'data' in error.response &&
+      'status' in error.response
+    ) {
+      const err = error as { response: { data: unknown; status: number } };
+      return NextResponse.json(err.response.data, { status: err.response.status });
     }
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: (error instanceof Error ? error.message : 'Unknown error') }, { status: 500 });
   }
 } 
