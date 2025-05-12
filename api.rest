@@ -1,0 +1,11 @@
+post http://localhost:3000/api/gsheet
+Content-Type: application/json
+
+{
+    "nombre": "John",
+    "apellido": "Doe",
+    "correo": "john@example.com",
+    "celular": "1234567890",
+    "fecha_nacimiento": "1990-01-01",
+    "terminos": true
+}
